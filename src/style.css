@@ -1,3 +1,22 @@
 body {
-  color: red;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.header-container {
+  border: 2px solid salmon;
+}
+
+.aside-container {
+  border: 2px solid greenyellow;
+
+}
+
+.article-container {
+  border: 2px solid cyan;
+}
+
+.footer-container {
+  border: 2px solid lightcoral;
 }
