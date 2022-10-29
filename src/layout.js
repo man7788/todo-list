@@ -1,5 +1,5 @@
 import { createHeader } from './header';
-import { createASide } from './aside';
+import { createSide } from './side';
 import { createArticle } from './article';
 import { createFooter } from './footer';
 
@@ -21,7 +21,7 @@ import { createFooter } from './footer';
 
 function placeLayout() {
   container.appendChild(createHeader());
-  container.appendChild(createASide());
+  container.appendChild(createSide());
   container.appendChild(createArticle());
   container.appendChild(createFooter());
 }

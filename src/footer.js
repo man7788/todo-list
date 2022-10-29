@@ -6,7 +6,10 @@ const elementFactory = (name) => {
 
 function createFooter() {
 const footerDiv = elementFactory('footer-container').element;
+const footerTitle = elementFactory('footer-title').element;
 
+footerTitle.textContent = 'Copy Right ©2022';
+footerDiv.appendChild(footerTitle);
 return footerDiv;
 }
 
