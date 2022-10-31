@@ -1,14 +1,6 @@
-const elementFactory = (name) => {
-  let element = document.createElement('div');
-  element.classList.add(name);
-  return { element };
-};
+import { elementFactory } from "./factory";
+import { traverseAppend } from "./factory";
 
-const traverseAppend = (div, name) => {
-  for (let key in name) {
-    div.appendChild(name[key]);
-  }
-};
 
 function createSide() {
   const sideDiv = elementFactory('side-container').element;
@@ -20,11 +12,11 @@ function createSide() {
 }
 
 function sideContent() {
-  const sideHome = elementFactory('side-home').element;
-  const sideProject = elementFactory('side-home').element;
+  const sideHome = elementFactory('side-button').element;
+  const sideProject = elementFactory('side-button').element;
   
-  sideHome.textContent = 'Home';
-  sideProject.textContent = 'Project';
+  sideHome.textContent = 'Inbox';
+  sideProject.textContent = 'Projects';
   
   return { sideHome, sideProject };
 }

@@ -1,16 +1,24 @@
-const elementFactory = (name) => {
-  let element = document.createElement('div');
-  element.classList.add(name);
-  return { element };
-}
+import { elementFactory } from "./factory";
+import { traverseAppend } from "./factory";
+
 
 function createFooter() {
-const footerDiv = elementFactory('footer-container').element;
-const footerTitle = elementFactory('footer-title').element;
+  const footerDiv = elementFactory('footer-container').element;
+  const content = footerContent();
 
-footerTitle.textContent = 'Copy Right ©2022';
-footerDiv.appendChild(footerTitle);
-return footerDiv;
+  traverseAppend(footerDiv, content);
+
+  return footerDiv;
+}
+
+function footerContent() {
+  const footerAdd = elementFactory('footer-add').element;
+  const footerNewPrj = elementFactory('footer-new-prj').element;
+
+  footerAdd.textContent = '+';
+  footerNewPrj.textContent = 'New Project';
+
+  return { footerAdd, footerNewPrj };
 }
 
 export { createFooter };

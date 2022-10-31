@@ -1,16 +1,13 @@
-const elementFactory = (name) => {
-  let element = document.createElement('div');
-  element.classList.add(name);
-  return { element };
-}
+import { elementFactory } from "./elements";
+import { traverseAppend } from "./elements";
 
 function createArticle() {
-const articleDiv = elementFactory('article-container').element;
-const article = articleContent();
+  const articleDiv = elementFactory('article-container').element;
+  const article = articleContent();
 
-articleDiv.appendChild(article);
+  articleDiv.appendChild(article);
 
-return articleDiv;
+  return articleDiv;
 }
 
 function articleContent() {

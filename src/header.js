@@ -1,16 +1,22 @@
-const elementFactory = (name) => {
-  let element = document.createElement('div');
-  element.classList.add(name);
-  return { element };
-}
+import { elementFactory } from "./factory";
+import { traverseAppend } from "./factory";
 
 function createHeader() {
-const headerDiv = elementFactory('header-container').element;
-const headerTitle = elementFactory('header-title').element;
+  const headerDiv = elementFactory('header-container').element;
+  const content = headerContent();
 
-headerTitle.textContent = 'Todo List';
-headerDiv.appendChild(headerTitle);
-return headerDiv;
+  traverseAppend(headerDiv, content);
+
+  return headerDiv;
+}
+
+function headerContent() {
+  const headerTitle = elementFactory('header-title').element;
+
+  headerTitle.textContent = 'Todo List';
+
+  return { headerTitle };
+
 }
 
 export { createHeader };
