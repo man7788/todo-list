@@ -4,14 +4,14 @@ import { traverseAppend } from "./factory";
 
 function createFooter() {
   const footerDiv = elementFactory('footer-container').element;
-  const content = footerContent();
+  const content = createFooterContent();
 
   traverseAppend(footerDiv, content);
 
   return footerDiv;
 }
 
-function footerContent() {
+function createFooterContent() {
   const footerAdd = elementFactory('footer-add').element;
   const footerNewPrj = elementFactory('footer-new-prj').element;
 

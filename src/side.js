@@ -4,21 +4,38 @@ import { traverseAppend } from "./factory";
 
 function createSide() {
   const sideDiv = elementFactory('side-container').element;
-  const content = sideContent();
+  const content = createSideContent();
   
-  traverseAppend(sideDiv, content);
+  sideDiv.appendChild(content);
   
   return sideDiv;
 }
 
-function sideContent() {
+function createSideContent() {
+  const sideMenu = elementFactory('side-menu').element;
   const sideHome = elementFactory('side-button').element;
+  const sideInbox = elementFactory('side-button').element;
   const sideProject = elementFactory('side-button').element;
+  const projectDiv = createSideProject();
   
-  sideHome.textContent = 'Inbox';
+  sideHome.textContent = 'Home';
+  sideInbox.textContent = 'Inbox';
   sideProject.textContent = 'Projects';
+
+  sideMenu.append(sideHome, sideInbox, sideProject, projectDiv);
   
-  return { sideHome, sideProject };
+  return sideMenu;
+}
+
+function createSideProject() {
+  const projectDiv = elementFactory('project-container').element;
+  const projectItem = elementFactory('project-title').element;
+
+  projectItem.textContent = 'Project Name';
+
+  projectDiv.appendChild(projectItem);
+
+  return projectDiv;
 }
 
 export { createSide };
