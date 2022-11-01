@@ -10,4 +10,14 @@ const traverseAppend = (div, name) => {
   }
 };
 
-export { elementFactory, traverseAppend }
+const createEventListener = (element, action, func) => {
+  let node = document.querySelector(element);
+  node.addEventListener(action, func);
+}
+
+const loadNewPage = (element) => {
+  document.querySelector('div:nth-child(3)').replaceChildren();
+  container.appendChild(element);
+}
+
+export { elementFactory, traverseAppend, createEventListener, loadNewPage }

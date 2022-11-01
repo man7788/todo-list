@@ -29,7 +29,7 @@
  /* ////////////////////////////////////////Side  */
 .side-container {
   /* border: 2px solid greenyellow; */
-  grid-row: 2 / 3;
+  grid-row: 2 / 4;
   grid-column: 1 / 2;
   background: rgb(40, 40, 40);
   display: grid;
@@ -60,7 +60,7 @@
   grid-row: 4 / 5;
 }
 
-.project-container {
+/* .project-container {
   grid-row: 5 / 6;
   grid-column: 2 / 4;
   color: whitesmoke;
@@ -69,17 +69,27 @@
 .project-title {
   font-size: 1.1rem;
   text-align: center;
-}
+} */
  /* ////////////////////////////////////////Inbox  */
-.inbox-container {
-  /* border: 2px solid cyan; */
+
+ .content {
   grid-row: 1 / 4;
   grid-column: 2 / 3;
   background: rgb(70, 70, 70);
   display: grid;
-}
+ }
+ 
+/* .inbox-container,
+.project-container {
+  border: 2px solid cyan;
+  grid-row: 1 / 4;
+  grid-column: 2 / 3;
+  background: rgb(70, 70, 70);
+  display: grid;
+} */
 
-.inbox-content {
+.inbox-content,
+.project-content {
   color: whitesmoke;
   display: grid;
   grid-template-rows: 0.1fr 1fr 10fr;
@@ -87,7 +97,8 @@
 }
 
  /* ////////////////////////////////////////Inbox Header  */
-.inbox-header-container {
+.inbox-header-container,
+.project-header-container {
   grid-row: 2 / 3;
   grid-column: 2 / 3;
   display: grid;
@@ -96,12 +107,14 @@
   align-items: end;
 }
 
-.inbox-title {
+.inbox-title,
+.project-title {
   font-size: 2rem;
   grid-column: 1 / 2;
 }
 
-.new-todo-div {
+.new-todo-div,
+.new-project-div {
   grid-column: 3 / 4;
   display: grid;
   grid-template-columns: 1fr 1.5fr 3fr;
@@ -109,14 +122,19 @@
   align-items: center;
 }
 
-.inbox-add {
+.inbox-add,
+.project-add {
   font-size: 3rem;
-  position: relative;
-  top: 0.3rem;
   grid-column: 2 / 3;
+  position: relative;
+  top: 0.28rem;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 0.5rem;
 }
 
-.new-todo {
+.new-todo,
+.new-project {
   font-size: 1.5rem;
   position: relative;
   top: 0.5rem;

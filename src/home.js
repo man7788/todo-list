@@ -1,21 +1,55 @@
-import { elementFactory } from "./elements";
-import { traverseAppend } from "./elements";
+import { elementFactory } from "./factory";
+import { traverseAppend } from "./factory";
 
-function createArticle() {
-  const articleDiv = elementFactory('article-container').element;
-  const article = articleContent();
+function createHome() {
+  const homeDiv = elementFactory('home-container').element;
+  const content = createInboxContent();
 
-  articleDiv.appendChild(article);
+  inboxDiv.appendChild(content);
 
-  return articleDiv;
+  return inboxDiv;
 }
 
-function articleContent() {
-  const article = elementFactory('article').element;
-  
-  article.textContent = 'Todo';
+function createHomeInboxContent() {
+  const homeContent = elementFactory('home-content').element;
+  const headerContent = createInboxHeader();
+  const cardContent = createCard();
 
-  return article;
+  inboxContent.append(headerContent, cardContent);
+
+  return inboxContent;
 }
 
-export { createArticle };
+function createHomeHeader() {
+  const homeHeaderDiv = elementFactory('home-header-container').element;
+  const homeTitle = elementFactory('home-title').element;
+  // const newTodoDiv = elementFactory('new-todo-div').element;
+  // const inboxAdd = elementFactory('inbox-add').element;
+  // const newTodo = elementFactory('new-todo').element;
+
+  homeTitle.textContent = 'Home';
+  // inboxAdd.textContent = '+';
+  // newTodo.textContent = 'New Todo';
+
+  newTodoDiv.append(inboxAdd, newTodo);
+  homeHeaderDiv.append(inboxTitle);
+
+  return homeHeaderDiv;
+}
+
+function createCard() {
+  const cardDiv = elementFactory('card-container').element;
+  const cardItem = elementFactory('card-item').element;
+  const cardDate = elementFactory('card-date').element;
+  const cardTitle = elementFactory('card-title').element;
+
+  cardDate.textContent = 'Mon, June 18';
+  cardTitle.textContent = 'This is some text place-holders';
+
+  cardItem.append(cardTitle, cardDate);
+  cardDiv.append(cardItem);
+
+  return cardDiv;
+}
+
+export { createInbox };

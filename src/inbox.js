@@ -1,13 +1,15 @@
 import { elementFactory } from "./factory";
-import { traverseAppend } from "./factory";
 
 function createInbox() {
+  const mainContent = elementFactory('content').element;
   const inboxDiv = elementFactory('inbox-container').element;
   const content = createInboxContent();
 
   inboxDiv.appendChild(content);
+  mainContent.appendChild(inboxDiv);
 
-  return inboxDiv;
+
+  return mainContent;
 }
 
 function createInboxContent() {

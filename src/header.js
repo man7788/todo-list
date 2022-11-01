@@ -1,5 +1,4 @@
 import { elementFactory } from "./factory";
-import { traverseAppend } from "./factory";
 
 function createHeader() {
   const headerDiv = elementFactory('header-container').element;

@@ -1,10 +1,11 @@
 import { elementFactory } from "./factory";
-import { traverseAppend } from "./factory";
-
+import { createEventListener } from "./factory";
+import { loadNewPage } from "./factory";
+import { createInbox } from "./inbox";
 
 function createSide() {
   const sideDiv = elementFactory('side-container').element;
-  const content = createSideContent();
+  const content = createSideContent().sideMenu;
   
   sideDiv.appendChild(content);
   
@@ -13,29 +14,29 @@ function createSide() {
 
 function createSideContent() {
   const sideMenu = elementFactory('side-menu').element;
-  const sideHome = elementFactory('side-button').element;
+  // const sideHome = elementFactory('side-button').element;
   const sideInbox = elementFactory('side-button').element;
   const sideProject = elementFactory('side-button').element;
-  const projectDiv = createSideProject();
+  // const projectDiv = createSideProject();
   
-  sideHome.textContent = 'Home';
+  // sideHome.textContent = 'Home';
   sideInbox.textContent = 'Inbox';
   sideProject.textContent = 'Projects';
 
-  sideMenu.append(sideHome, sideInbox, sideProject, projectDiv);
+  sideMenu.append( sideInbox, sideProject );
   
-  return sideMenu;
+  return { sideMenu, sideInbox, sideProject };
 }
 
-function createSideProject() {
-  const projectDiv = elementFactory('project-container').element;
-  const projectItem = elementFactory('project-title').element;
+// function createSideProject() {
+//   const projectDiv = elementFactory('project-container').element;
+//   const projectItem = elementFactory('project-title').element;
 
-  projectItem.textContent = 'Project Name';
+//   projectItem.textContent = 'Project Name';
 
-  projectDiv.appendChild(projectItem);
+//   projectDiv.appendChild(projectItem);
 
-  return projectDiv;
-}
+//   return projectDiv;
+// }
 
-export { createSide };
+export { createSide, createSideContent };
