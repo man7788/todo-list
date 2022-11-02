@@ -1,7 +1,4 @@
 import { elementFactory } from "./factory";
-import { createEventListener } from "./factory";
-import { loadNewPage } from "./factory";
-import { createInbox } from "./inbox";
 
 function createSide() {
   const sideDiv = elementFactory('side-container').element;

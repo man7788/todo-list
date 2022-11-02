@@ -78,15 +78,6 @@
   background: rgb(70, 70, 70);
   display: grid;
  }
- 
-/* .inbox-container,
-.project-container {
-  border: 2px solid cyan;
-  grid-row: 1 / 4;
-  grid-column: 2 / 3;
-  background: rgb(70, 70, 70);
-  display: grid;
-} */
 
 .inbox-content,
 .project-content {

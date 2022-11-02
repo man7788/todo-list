@@ -1,12 +1,12 @@
-import { createInbox } from './inbox';
-import { createProject } from './projects';
-
+import { createInboxContent } from './inbox';
+import { createProjectContent } from './projects';
 
 function findElement() {
   const menuInbox = document.querySelector('.side-button:nth-child(1)');
   const menuProjects = document.querySelector('.side-button:nth-child(2)');
   const mainContent = document.querySelector('.content')
-  return { menuInbox, menuProjects, mainContent };
+  const addButton = document.querySelector('.new-todo')
+  return { menuInbox, menuProjects, mainContent, addButton };
 }
 
 function createClick() {
@@ -18,13 +18,14 @@ function createClick() {
 
 function loadInbox() {
   const load = findElement().mainContent;
-  load.replaceChildren();
-  load.appendChild(createInbox());
+  document.querySelector('.content > *').remove();
+  load.appendChild(createInboxContent());
 }
 
 function loadProject() {
   const load = findElement().mainContent;
-  load.replaceChildren();
-  load.appendChild(createProject());
+  document.querySelector('.content > *').remove();
+  load.appendChild(createProjectContent());
 }
+
 export { createClick }

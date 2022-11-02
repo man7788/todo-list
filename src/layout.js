@@ -1,17 +1,26 @@
 import { elementFactory } from './factory';
 import { createHeader } from './header';
 import { createSide } from './side';
-// import { createFooter } from './footer';
-import { createInbox } from './inbox';
-import { createProject } from './projects';
+import { createInboxContent } from './inbox';
 
-function placeLayout() {
-  container.appendChild(createHeader());
-  container.appendChild(createSide());
-  container.appendChild(createInbox());
-  // container.appendChild(createProject());
-  // container.appendChild(createFooter());
+function createDiv() {
+  const contentDiv = elementFactory('content').element;
+  return { contentDiv };
 }
 
+function placeToContainer() {
+  const contentDiv= placeToParent().contentDiv;
+  container.appendChild(createHeader());
+  container.appendChild(createSide());
+  container.appendChild(contentDiv);
+}
 
-export { placeLayout };
+function placeToParent() {
+const contentDiv = createDiv().contentDiv;
+
+contentDiv.appendChild(createInboxContent());
+
+return { contentDiv };
+}
+
+export { placeToContainer };

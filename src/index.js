@@ -1,12 +1,18 @@
 import './style.css';
-import { placeLayout } from './layout';
-import { createClick } from './listeners';
+import { placeToContainer } from './layout';
+import { createClick } from './side-listeners';
+import { createTodoClick } from './add-card';
 
 (function() {
-  placeLayout();
+  placeToContainer();
 })();
 
 (function() {
   createClick();
 })();
+
+(function() {
+  createTodoClick();
+})();
+
 

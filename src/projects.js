@@ -1,23 +1,10 @@
 import { elementFactory } from "./factory";
 
-function createProject() {
-  const mainContent = elementFactory('content').element;
-  const projectDiv = elementFactory('project-container').element;
-  const content = createProjectContent();
-
-  projectDiv.appendChild(content);
-  mainContent.appendChild(projectDiv);
-
-  return mainContent;
-}
-
 function createProjectContent() {
   const projectContent = elementFactory('project-content').element;
   const headerContent = createProjectHeader();
-  const cardContent = createCard();
 
-  projectContent.append(headerContent, cardContent);
-
+  projectContent.append(headerContent);
 
   return projectContent;
 }
@@ -39,19 +26,4 @@ function createProjectHeader() {
   return projectHeaderDiv;
 }
 
-function createCard() {
-  const cardDiv = elementFactory('card-container').element;
-  const cardItem = elementFactory('card-item').element;
-  const cardDate = elementFactory('card-date').element;
-  const cardTitle = elementFactory('card-title').element;
-
-  cardDate.textContent = 'Mon, June 18';
-  cardTitle.textContent = 'This is some text place-holders';
-
-  cardItem.append(cardTitle, cardDate);
-  cardDiv.append(cardItem);
-
-  return cardDiv;
-}
-
-export { createProject };
+export { createProjectContent };

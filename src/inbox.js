@@ -1,24 +1,12 @@
-import { elementFactory } from "./factory";
-
-function createInbox() {
-  const mainContent = elementFactory('content').element;
-  const inboxDiv = elementFactory('inbox-container').element;
-  const content = createInboxContent();
-
-  inboxDiv.appendChild(content);
-  mainContent.appendChild(inboxDiv);
-
-
-  return mainContent;
-}
+import { elementFactory } from './factory';
 
 function createInboxContent() {
   const inboxContent = elementFactory('inbox-content').element;
   const headerContent = createInboxHeader();
-  const cardContent = createCard();
+  const cardContainer = elementFactory('card-container').element;
 
-  inboxContent.append(headerContent, cardContent);
-
+  inboxContent.append(headerContent);
+  inboxContent.append(cardContainer);
 
   return inboxContent;
 }
@@ -40,19 +28,4 @@ function createInboxHeader() {
   return inboxHeaderDiv;
 }
 
-function createCard() {
-  const cardDiv = elementFactory('card-container').element;
-  const cardItem = elementFactory('card-item').element;
-  const cardDate = elementFactory('card-date').element;
-  const cardTitle = elementFactory('card-title').element;
-
-  cardDate.textContent = 'Mon, June 18';
-  cardTitle.textContent = 'This is some text place-holders';
-
-  cardItem.append(cardTitle, cardDate);
-  cardDiv.append(cardItem);
-
-  return cardDiv;
-}
-
-export { createInbox };
+export { createInboxContent };
