@@ -10,12 +10,15 @@ function addButtonListener(add, item, title, descript, date, priority) {
   });
 }
 
-function addEditListener(edit, item, title, descript, date) {
+function addEditListener(edit, del, item, title, descript, date) {
   const target = findElement().cardContainer;
   const editCard = cardFactory(title, descript, date, 'Save').cardItem;
   edit.addEventListener('click', function() {
     item.remove();
     target.appendChild(editCard);
+  })
+  del.addEventListener('click', function() {
+    item.remove();
   })
 }
 
@@ -53,7 +56,7 @@ function cardOutput (title, descript, date, priority) {
   
   cardItem.append(cardTitle, cardDescript, cardDate, cardPriority, edit, del);
   cardContainer.append(cardItem)
-  addEditListener(edit, cardItem, cardTitle.textContent, cardDescript.textContent, cardDate.textContent);
+  addEditListener(edit, del, cardItem, cardTitle.textContent, cardDescript.textContent, cardDate.textContent);
 
 }
 
