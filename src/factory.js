@@ -12,11 +12,9 @@ const formFactory = () => {
 };
 
 const inputFactory = (type, plcholder) => {
-  const br = document.createElement('br');
   const element = document.createElement('input');
   element.setAttribute('type', type);
   element.setAttribute('placeholder', plcholder);
-  br.appendChild(element);
   return { element };
 }
 
@@ -38,10 +36,11 @@ const selectFactory = (label, op1, op2, op3) => {
   return { element }
 }
 
-const buttonFactory = (type, text) => {
+const buttonFactory = (type, cls, text) => {
   const element = document.createElement('button');
   element.setAttribute('type', type);
   element.textContent = text;
+  element.classList.add(cls);
   return { element }
 }
 

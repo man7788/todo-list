@@ -203,9 +203,9 @@ grid-row: 4 / 5;
   grid-row: 4 / 5;
 }
 
-#add-button,
-#edit-button,
-#delete-button {
+.add-button,
+.edit-button,
+.del-button {
   width: 4rem;
   height: 1.8rem;
   justify-self: center;
@@ -216,15 +216,15 @@ grid-row: 4 / 5;
   border: 1px solid transparent;
 }
 
-#add-button {
+.add-button {
   grid-column: 2 / 3;
 }
 
-#edit-button {
+.edit-button {
   grid-row: 4 / 5;
 }
 
-#delete-button {
+.del-button {
   grid-row: 1 / 2;
   width: 2rem;
   justify-self: end;

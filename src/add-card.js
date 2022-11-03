@@ -1,9 +1,8 @@
 import { elementFactory, formFactory, inputFactory, selectFactory, buttonFactory } from "./factory";
 
-function addButtonListener(add, cardItem, title, descript, date, priority) {
-  add.addEventListener('click', function(e) {
-    e.preventDefault();
-    cardItem.remove();
+function addButtonListener(add, item, title, descript, date, priority) {
+  add.addEventListener('click', function() {
+    item.remove();
     cardOutput(title.value,
       descript.value,
       date.value,
@@ -11,19 +10,27 @@ function addButtonListener(add, cardItem, title, descript, date, priority) {
   });
 }
 
-const cardFactory = () => {
+function addEditListener(edit, item, title, descript, date) {
+  const target = findElement().cardContainer;
+  const editCard = cardFactory(title, descript, date, 'Save').cardItem;
+  edit.addEventListener('click', function() {
+    item.remove();
+    target.appendChild(editCard);
+  })
+}
+
+const cardFactory = (title, descript, date, button) => {
   const cardItem = elementFactory('card-item').element;
   const form = formFactory().element;
-  const title = inputFactory('text', 'New Title').element;
-  const descript = inputFactory('text', 'New Description').element;
-  const date = inputFactory('text', 'New Date').element;
-  const priority = selectFactory('Priority', 'High', 'Normal', 'Low').element;
-  const add = buttonFactory('submit', 'Add').element;
+  const cardTitle = inputFactory('text', title).element;
+  const cardDescript = inputFactory('text', descript).element;
+  const cardDate = inputFactory('date', date).element;
+  const cardPriority = selectFactory('Priority', 'High', 'Normal', 'Low').element;
+  const add = buttonFactory('button', 'add-button', button).element;
 
-  add.setAttribute('id', 'add-button');
-  addButtonListener(add, cardItem, title, descript, date, priority);
+  addButtonListener(add, cardItem, cardTitle, cardDescript, cardDate, cardPriority);
   
-  form.append(title, descript, date, priority);
+  form.append(cardTitle, cardDescript, cardDate, cardPriority);
   cardItem.append(form, add);
 
   return { cardItem };
@@ -36,11 +43,8 @@ function cardOutput (title, descript, date, priority) {
   const cardDescript = elementFactory('card-descript').element;
   const cardDate = elementFactory('card-date').element;
   const cardPriority = elementFactory('card-priority').element;
-  const edit = buttonFactory('button', 'Edit').element;
-  const del = buttonFactory('button', 'X').element;
-
-  edit.setAttribute('id', 'edit-button');
-  del.setAttribute('id', 'delete-button');
+  const edit = buttonFactory('button', 'edit-button','Edit').element;
+  const del = buttonFactory('button', 'del-button', 'X').element;
 
   cardTitle.textContent = title;
   cardDescript.textContent = descript;
@@ -49,12 +53,20 @@ function cardOutput (title, descript, date, priority) {
   
   cardItem.append(cardTitle, cardDescript, cardDate, cardPriority, edit, del);
   cardContainer.append(cardItem)
+  addEditListener(edit, cardItem, cardTitle.textContent, cardDescript.textContent, cardDate.textContent);
+
 }
 
 function findElement() {
   const newButton = document.querySelector('.new-todo-div');
   const cardContainer = document.querySelector('.card-container');
-  return { newButton, cardContainer }
+  const cardTitle = document.querySelector('.card-title');
+  const cardDescript = document.querySelector('.card-descript');
+  const cardDate = document.querySelector('.card-date');
+  const cardPriority = document.querySelector('.card-priority');
+  const edit = document.querySelector('#edit-button');
+
+  return { newButton, cardContainer, cardTitle, cardDescript, cardDate, cardPriority, edit }
 }
 
 function createTodoClick() {
@@ -64,7 +76,8 @@ function createTodoClick() {
 
 function addCard() {
   const target = findElement().cardContainer;
-  const newCard = cardFactory('New Title', 'New Description', 'New Date', '').cardItem;
+  const newCard = cardFactory('New Title', 'New Description', 'New Date', 'Add').cardItem;
   target.appendChild(newCard);
 }
+
 export { createTodoClick };
