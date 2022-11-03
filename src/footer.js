@@ -1,12 +1,10 @@
 import { elementFactory } from "./factory";
-import { traverseAppend } from "./factory";
-
 
 function createFooter() {
   const footerDiv = elementFactory('footer-container').element;
   const content = createFooterContent();
 
-  traverseAppend(footerDiv, content);
+  footerDiv.appendChild(content);
 
   return footerDiv;
 }
