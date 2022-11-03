@@ -20,25 +20,28 @@ const inputFactory = (type, plcholder) => {
   return { element };
 }
 
-const selectFactory = (op1, op2, op3) => {
+const selectFactory = (label, op1, op2, op3) => {
   const element = document.createElement('select');
+  const group = document.createElement('optgroup');
   const option1 = document.createElement('option');
   const option2 = document.createElement('option');
   const option3 = document.createElement('option');
 
+  group.setAttribute('label', label);
   option1.textContent = op1;
   option2.textContent = op2;
   option2.setAttribute('selected', 'selected');
   option3.textContent = op3;
-  element.append(option1, option2, option3);
+  group.append(option1, option2, option3);
+  element.append(group);
 
   return { element }
 }
 
-const buttonFactory = (type) => {
+const buttonFactory = (type, text) => {
   const element = document.createElement('button');
   element.setAttribute('type', type);
-  element.textContent = 'Add';
+  element.textContent = text;
   return { element }
 }
 
@@ -48,9 +51,3 @@ export { elementFactory, inputFactory, formFactory, selectFactory, buttonFactory
   // cardDescript.setAttribute('contenteditable', 'true');
   // cardDate.setAttribute('contenteditable', 'true');
   // cardPriority.setAttribute('contenteditable', 'true');
-  
-
-  // cardTitle.textContent = title;
-  // cardDescript.textContent = descript;
-  // cardPriority.textContent = 'Priority: ' + priority;
-  // cardDate.textContent = date;

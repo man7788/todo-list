@@ -12,7 +12,7 @@
   grid-template-columns: 300px 100fr;
 }
 
- /* ////////////////////////////////////////Header  */
+/* ////////////////////////////////////////Header  */
 .header-container {
   /* border: 2px solid salmon; */
   grid-column: 1 / 2;
@@ -26,7 +26,7 @@
   place-self: center;
 }
 
- /* ////////////////////////////////////////Side  */
+/* ////////////////////////////////////////Side  */
 .side-container {
   /* border: 2px solid greenyellow; */
   grid-row: 2 / 4;
@@ -70,14 +70,14 @@
   font-size: 1.1rem;
   text-align: center;
 } */
- /* ////////////////////////////////////////Inbox  */
+/* ////////////////////////////////////////Inbox  */
 
- .content {
+.content {
   grid-row: 1 / 4;
   grid-column: 2 / 3;
   background: rgb(70, 70, 70);
   display: grid;
- }
+}
 
 .inbox-content,
 .project-content {
@@ -87,7 +87,7 @@
   grid-template-columns: 1fr 5fr 1fr;
 }
 
- /* ////////////////////////////////////////Inbox Header  */
+/* ////////////////////////////////////////Inbox Header  */
 .inbox-header-container,
 .project-header-container {
   grid-row: 2 / 3;
@@ -136,33 +136,31 @@
   width: fit-content;
 }
 
- /* ////////////////////////////////////////Inbox Card  */
- .card-container {
+/* ////////////////////////////////////////Inbox Card  */
+.card-container {
   grid-row: 3 / 4;
   grid-column: 2 / 3;
   display: flex;
   flex-direction: column;
- }
+}
 
- .card-item {
+.card-item {
   background: rgba(40, 40, 40, 0.6);
   border-radius: 20px;
   padding: 1rem;
   margin-top: 1rem;
   font-size: 1.5rem;
-  
- }
-
- /* .card-title {
-  font-size: 1.2rem;
- } */
+  line-height: 30px;
+  display: grid;
+  grid-template-columns: 7fr 1fr;
+}
 
 form {
   display: flex;
   flex-direction: column;
-  display: grid;
-  grid-template-columns: 7fr 1fr;
- }
+  /* display: grid;
+  grid-template-columns: 7fr 1fr; */
+}
 
 input,
 select {
@@ -171,7 +169,7 @@ select {
   font-size: 1.5rem;
   border: 1px solid transparent;
 
- }
+}
 
 input:nth-child(1) {
   grid-row: 1 / 2;
@@ -185,21 +183,53 @@ input:nth-child(3) {
   grid-row: 3 / 4;
 }
 
- button {
-  grid-column: 2 / 3;
+select {
+grid-row: 4 / 5;
+}
+
+.card-title {
+  grid-row: 1 / 2;
+}
+
+.card-descript {
+  grid-row: 2 / 3;
+}
+
+.card-date {
+  grid-row: 3 / 4;
+}
+
+.card-priority {
   grid-row: 4 / 5;
+}
+
+#add-button,
+#edit-button,
+#delete-button {
   width: 4rem;
+  height: 1.8rem;
   justify-self: center;
+  align-self: end;
   background: rgb(100, 100, 100);
   color: whitesmoke;
   border-radius: 20rem;
   border: 1px solid transparent;
- }
+}
 
- select {
+#add-button {
+  grid-column: 2 / 3;
+}
+
+#edit-button {
   grid-row: 4 / 5;
- }
- /* ////////////////////////////////////////Footer  */
+}
+
+#delete-button {
+  grid-row: 1 / 2;
+  width: 2rem;
+  justify-self: end;
+}
+/* ////////////////////////////////////////Footer  */
 .footer-container {
   /* border: 2px solid lightcoral; */
   grid-column: 1 / 2;
