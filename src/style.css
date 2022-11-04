@@ -144,7 +144,8 @@
   flex-direction: column;
 }
 
-.card-item {
+.card-item,
+.card-item-shrink {
   background: rgba(40, 40, 40, 0.6);
   border-radius: 20px;
   padding: 1rem;
@@ -164,7 +165,7 @@ form {
 
 input,
 select {
-  background: rgba(40, 40, 40, 0.6);
+  background: rgba(40, 40, 40, 0);
   color: whitesmoke;
   font-size: 1.5rem;
   border: 1px solid transparent;
@@ -205,7 +206,8 @@ grid-row: 4 / 5;
 
 .add-button,
 .edit-button,
-.del-button {
+.del-button,
+.expand-button {
   width: 4rem;
   height: 1.8rem;
   justify-self: center;
