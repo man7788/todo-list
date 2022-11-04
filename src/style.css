@@ -153,7 +153,7 @@
   font-size: 1.5rem;
   line-height: 30px;
   display: grid;
-  grid-template-columns: 7fr 1fr;
+  grid-template-columns: minmax(200px, 1fr) minmax(140px, max-content);
 }
 
 form {
@@ -210,26 +210,45 @@ grid-row: 4 / 5;
 .expand-button {
   width: 4rem;
   height: 1.8rem;
-  justify-self: center;
+  justify-self: end;
   align-self: end;
   background: rgb(100, 100, 100);
   color: whitesmoke;
   border-radius: 20rem;
   border: 1px solid transparent;
 }
+.expand-button {
+  justify-self: start;
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+}
 
 .add-button {
   grid-column: 2 / 3;
 }
-
+.shrink-button,
 .edit-button {
   grid-row: 4 / 5;
+  grid-column: 2 / 3;
+
 }
 
 .del-button {
   grid-row: 1 / 2;
+  grid-column: 2 / 3;
   width: 2rem;
   justify-self: end;
+}
+
+.shrink-button {
+  width: 4rem;
+  height: 1.8rem;
+  justify-self: start;
+  align-self: end;
+  background: rgb(100, 100, 100);
+  color: whitesmoke;
+  border-radius: 20rem;
+  border: 1px solid transparent;
 }
 /* ////////////////////////////////////////Footer  */
 .footer-container {

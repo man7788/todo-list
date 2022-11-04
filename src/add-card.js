@@ -8,7 +8,7 @@ function addButtonListener(add, item, title, descript, date, priority) {
       descript.value,
       date.value,
       priority.value,
-      'Expand')
+    )
     item.remove();
   });
 }
@@ -25,26 +25,42 @@ function expandButtonListener(expand, item, title, descript, date, priority) {
   });
 }
 
-function addEditListener(edit, del, item, title, descript, date) {
+function editButtonListener(edit, item, title, descript, date) {
   const target = findElement().cardContainer;
   const editCard = cardFactory(title, descript, date, 'Save').cardItem;
   edit.addEventListener('click', function() {
     target.insertBefore(editCard, item);
     item.remove();
-  })
-  del.addEventListener('click', function() {
-    item.remove();
-  })
+  });
 }
 
-const cardFactory = (title, descript, date, button) => {
+  function delButtonListener(del, item) {
+    del.addEventListener('click', function() {
+      item.remove();
+    });
+  }
+
+  function shrinkButtonListener(shrink, item, title, descript, date, priority) {
+    shrink.addEventListener('click', function() {
+      cardShrink(
+        item,
+        title,
+        descript,
+        date,
+        priority,
+      )
+      item.remove();
+  });
+}
+
+const cardFactory = (title, descript, date) => {
   const cardItem = elementFactory('card-item').element;
   const form = formFactory().element;
   const cardTitle = inputFactory('text', title).element;
   const cardDescript = inputFactory('text', descript).element;
   const cardDate = inputFactory('date', date).element;
   const cardPriority = selectFactory('Priority', 'High', 'Normal', 'Low').element;
-  const add = buttonFactory('button', 'add-button', button).element;
+  const add = buttonFactory('button', 'add-button', 'Add').element;
 
   addButtonListener(add, cardItem, cardTitle, cardDescript, cardDate, cardPriority);
   
@@ -54,17 +70,19 @@ const cardFactory = (title, descript, date, button) => {
   return { cardItem, cardTitle, cardDescript, cardDate, cardPriority };
 }
 
-function cardShrink(item, title, descript, date, priority, button) {
+function cardShrink(item, title, descript, date, priority) {
   const cardContainer = findElement().cardContainer;
   const cardItem = elementFactory('card-item-shrink').element;
   const cardTitle = elementFactory('card-title-shrink').element;
-  const expand = buttonFactory('button', 'expand-button', button).element;
-
+  const expand = buttonFactory('button', 'expand-button', 'Expand').element;
+  const del = buttonFactory('button', 'del-button', 'X').element;
   cardTitle.textContent = title;
-  cardItem.append(cardTitle, expand)
+
+  cardItem.append(cardTitle, expand, del)
   cardContainer.insertBefore(cardItem, item)
 
   expandButtonListener(expand, cardItem, title, descript, date, priority);
+  delButtonListener(del, cardItem);
 }
 
 function cardOutput (item, title, descript, date, priority) {
@@ -76,15 +94,19 @@ function cardOutput (item, title, descript, date, priority) {
   const cardPriority = elementFactory('card-priority').element;
   const edit = buttonFactory('button', 'edit-button','Edit').element;
   const del = buttonFactory('button', 'del-button', 'X').element;
+  const shrink = buttonFactory('button', 'shrink-button', 'Shrink').element;
 
   cardTitle.textContent = title;
   cardDescript.textContent = descript;
   cardDate.textContent = date;
   cardPriority.textContent = 'Priority: ' + priority;
   
-  cardItem.append(cardTitle, cardDescript, cardDate, cardPriority, edit, del);
+  cardItem.append(cardTitle, cardDescript, cardDate, cardPriority, shrink, edit, del);
   cardContainer.insertBefore(cardItem, item)
-  addEditListener(edit, del, cardItem, title, descript, date);
+
+  editButtonListener(edit, cardItem, title, descript, date, priority);
+  delButtonListener(del, cardItem);
+  shrinkButtonListener(shrink, cardItem, title, descript, date, priority);
 }
 
 function findElement() {
