@@ -29,7 +29,7 @@
 /* ////////////////////////////////////////Side  */
 .side-container {
   /* border: 2px solid greenyellow; */
-  grid-row: 2 / 4;
+  grid-row: 2 / 3;
   grid-column: 1 / 2;
   background: rgb(40, 40, 40);
   display: grid;
@@ -37,8 +37,8 @@
 
 .side-menu {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 10fr;
-  grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr 0.5fr 0.1fr 10fr;
+  grid-template-columns: repeat(11, 1fr);
   justify-content: center;
 }
 
@@ -50,32 +50,37 @@
 
 .side-button:nth-child(1) {
   grid-row: 2 / 3;
+  grid-column: 3 / 10;
+
 }
 
 .side-button:nth-child(2) {
   grid-row: 3 / 4;
+  grid-column: 3 / 10;
+  display: grid;
+  /* border-bottom: 3px solid whitesmoke; */
 }
 
 .side-button:nth-child(3) {
   grid-row: 4 / 5;
 }
 
-/* .project-container {
+.side-project-container {
   grid-row: 5 / 6;
-  grid-column: 2 / 4;
+  grid-column: 4 / 10;
   color: whitesmoke;
 }
 
-.project-title {
-  font-size: 1.1rem;
-  text-align: center;
-} */
+.side-project-title {
+  font-size: 1.2rem;
+  /* text-align: center; */
+}
 /* ////////////////////////////////////////Inbox  */
 
 .content {
   grid-row: 1 / 4;
   grid-column: 2 / 3;
-  background: rgb(70, 70, 70);
+  background: rgb(55, 55, 55);
   display: grid;
 }
 
@@ -146,7 +151,7 @@
 
 .card-item,
 .card-item-shrink {
-  background: rgba(40, 40, 40, 0.6);
+  background: rgba(40, 40, 40);
   border-radius: 20px;
   padding: 1rem;
   margin-top: 1rem;
@@ -156,11 +161,9 @@
   grid-template-columns: minmax(200px, 1fr) minmax(140px, max-content);
 }
 
-form {
+.todo-form {
   display: flex;
   flex-direction: column;
-  /* display: grid;
-  grid-template-columns: 7fr 1fr; */
 }
 
 input,
@@ -172,15 +175,15 @@ select {
 
 }
 
-input:nth-child(1) {
+.card-container input:nth-child(1) {
   grid-row: 1 / 2;
 }
 
-input:nth-child(2) {
+.card-container input:nth-child(2) {
   grid-row: 2 / 3;
 }
 
-input:nth-child(3) {
+.card-container input:nth-child(3) {
   grid-row: 3 / 4;
 }
 
@@ -256,17 +259,19 @@ grid-row: 4 / 5;
   grid-column: 1 / 2;
   background: rgb(40, 40, 40);
   display: grid;
-  grid-template-columns: 1fr 1fr 6fr 1fr;
+  grid-template-columns: repeat(6, 1fr);
   color: beige;
   place-items: center;
 }
 
 .footer-add {
+  grid-column: 3 / 4;
   font-size: 3rem;
-  grid-column: 2 / 3;
   padding-bottom: 0.5rem;
 }
 
-.footer-new-prj {
+.footer-container > input {
+  grid-column: 5 / 6;
   font-size: 1.5rem;
+  width: 14rem;
 }

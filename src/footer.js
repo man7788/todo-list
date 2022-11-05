@@ -1,22 +1,21 @@
-import { elementFactory } from "./factory";
+import { elementFactory, inputFactory, buttonFactory } from './factory';
 
 function createFooter() {
   const footerDiv = elementFactory('footer-container').element;
   const content = createFooterContent();
 
-  footerDiv.appendChild(content);
+  footerDiv.append(content.footerAdd, content.footerNewPrj);
 
   return footerDiv;
 }
 
 function createFooterContent() {
   const footerAdd = elementFactory('footer-add').element;
-  const footerNewPrj = elementFactory('footer-new-prj').element;
+  const footerNewPrj = inputFactory('text', 'New Project').element;
 
   footerAdd.textContent = '+';
-  footerNewPrj.textContent = 'New Project';
 
   return { footerAdd, footerNewPrj };
 }
 
-export { createFooter };
+export { createFooter, createFooterContent };

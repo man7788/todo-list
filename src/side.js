@@ -1,4 +1,4 @@
-import { elementFactory } from "./factory";
+import { elementFactory } from './factory';
 
 function createSide() {
   const sideDiv = elementFactory('side-container').element;
@@ -11,29 +11,17 @@ function createSide() {
 
 function createSideContent() {
   const sideMenu = elementFactory('side-menu').element;
-  // const sideHome = elementFactory('side-button').element;
   const sideInbox = elementFactory('side-button').element;
   const sideProject = elementFactory('side-button').element;
-  // const projectDiv = createSideProject();
-  
-  // sideHome.textContent = 'Home';
+  const projectDiv = elementFactory('side-project-container').element;
   sideInbox.textContent = 'Inbox';
+
   sideProject.textContent = 'Projects';
 
-  sideMenu.append( sideInbox, sideProject );
+  sideMenu.append(sideInbox, sideProject, projectDiv);
   
   return { sideMenu, sideInbox, sideProject };
 }
 
-// function createSideProject() {
-//   const projectDiv = elementFactory('project-container').element;
-//   const projectItem = elementFactory('project-title').element;
-
-//   projectItem.textContent = 'Project Name';
-
-//   projectDiv.appendChild(projectItem);
-
-//   return projectDiv;
-// }
 
 export { createSide, createSideContent };

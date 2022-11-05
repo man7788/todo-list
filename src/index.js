@@ -1,19 +1,22 @@
 import './style.css';
 import { placeToContainer } from './layout';
-import { createClick } from './side-listeners';
+import { createSideClick } from './side-listeners';
 import { createTodoClick } from './add-card';
+import { createFooterClick } from './footer-listeners';
 
 (function() {
   placeToContainer();
 })();
 
 (function() {
-  createClick();
+  createSideClick();
 })();
 
 (function() {
   createTodoClick();
 })();
 
-
+(function() {
+  createFooterClick();
+})();
 

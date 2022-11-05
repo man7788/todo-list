@@ -5,8 +5,7 @@ function createInboxContent() {
   const headerContent = createInboxHeader();
   const cardContainer = elementFactory('card-container').element;
 
-  inboxContent.append(headerContent);
-  inboxContent.append(cardContainer);
+  inboxContent.append(headerContent, cardContainer);
 
   return inboxContent;
 }

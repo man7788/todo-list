@@ -1,26 +1,28 @@
 import { elementFactory } from './factory';
 import { createHeader } from './header';
+import { createFooter } from './footer';
 import { createSide } from './side';
 import { createInboxContent } from './inbox';
 
 function createDiv() {
   const contentDiv = elementFactory('content').element;
-  return { contentDiv };
+  return contentDiv;
 }
 
 function placeToContainer() {
-  const contentDiv= placeToParent().contentDiv;
+  const contentDiv = placeToParent();
   container.appendChild(createHeader());
+  container.appendChild(createFooter());
   container.appendChild(createSide());
   container.appendChild(contentDiv);
 }
 
 function placeToParent() {
-const contentDiv = createDiv().contentDiv;
+const contentDiv = createDiv();
 
 contentDiv.appendChild(createInboxContent());
 
-return { contentDiv };
+return contentDiv;
 }
 
 export { placeToContainer };

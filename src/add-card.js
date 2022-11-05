@@ -1,4 +1,10 @@
-import { elementFactory, formFactory, inputFactory, selectFactory, buttonFactory } from "./factory";
+import { 
+  elementFactory, 
+  formFactory, 
+  inputFactory, 
+  selectFactory, 
+  buttonFactory 
+} from './factory';
 
 function addButtonListener(add, item, title, descript, date, priority) {
   add.addEventListener('click', function() {
@@ -20,7 +26,8 @@ function expandButtonListener(expand, item, title, descript, date, priority) {
       title,
       descript,
       date,
-      priority)
+      priority
+    )
     item.remove();
   });
 }
@@ -28,6 +35,7 @@ function expandButtonListener(expand, item, title, descript, date, priority) {
 function editButtonListener(edit, item, title, descript, date) {
   const target = findElement().cardContainer;
   const editCard = cardFactory(title, descript, date, 'Save').cardItem;
+
   edit.addEventListener('click', function() {
     target.insertBefore(editCard, item);
     item.remove();
@@ -55,7 +63,7 @@ function editButtonListener(edit, item, title, descript, date) {
 
 const cardFactory = (title, descript, date) => {
   const cardItem = elementFactory('card-item').element;
-  const form = formFactory().element;
+  const form = formFactory('todo-form').element;
   const cardTitle = inputFactory('text', title).element;
   const cardDescript = inputFactory('text', descript).element;
   const cardDate = inputFactory('date', date).element;
@@ -76,6 +84,7 @@ function cardShrink(item, title, descript, date, priority) {
   const cardTitle = elementFactory('card-title-shrink').element;
   const expand = buttonFactory('button', 'expand-button', 'Expand').element;
   const del = buttonFactory('button', 'del-button', 'X').element;
+
   cardTitle.textContent = title;
 
   cardItem.append(cardTitle, expand, del)

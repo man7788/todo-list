@@ -1,15 +1,15 @@
 import { createInboxContent } from './inbox';
 import { createProjectContent } from './projects';
+import { createTodoClick } from './add-card';
 
 function findElement() {
   const menuInbox = document.querySelector('.side-button:nth-child(1)');
   const menuProjects = document.querySelector('.side-button:nth-child(2)');
   const mainContent = document.querySelector('.content')
-  const addButton = document.querySelector('.new-todo')
-  return { menuInbox, menuProjects, mainContent, addButton };
+  return { menuInbox, menuProjects, mainContent };
 }
 
-function createClick() {
+function createSideClick() {
   const inbox = findElement().menuInbox;
   const project = findElement().menuProjects;
   inbox.addEventListener('click', loadInbox);
@@ -20,6 +20,7 @@ function loadInbox() {
   const load = findElement().mainContent;
   document.querySelector('.content > *').remove();
   load.appendChild(createInboxContent());
+  createTodoClick();
 }
 
 function loadProject() {
@@ -28,4 +29,4 @@ function loadProject() {
   load.appendChild(createProjectContent());
 }
 
-export { createClick }
+export { createSideClick }

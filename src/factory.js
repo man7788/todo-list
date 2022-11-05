@@ -4,8 +4,9 @@ const elementFactory = (name) => {
   return { element };
 };
 
-const formFactory = () => {
+const formFactory = (cls) => {
   const element = document.createElement('form');
+  element.classList.add(cls);
   // element.setAttribute('action', action);
   // element.setAttribute('method', method);
   return { element };
@@ -45,8 +46,3 @@ const buttonFactory = (type, cls, text) => {
 }
 
 export { elementFactory, inputFactory, formFactory, selectFactory, buttonFactory }
-
- // cardTitle.setAttribute('contenteditable', 'true');
-  // cardDescript.setAttribute('contenteditable', 'true');
-  // cardDate.setAttribute('contenteditable', 'true');
-  // cardPriority.setAttribute('contenteditable', 'true');
