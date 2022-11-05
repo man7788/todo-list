@@ -1,10 +1,14 @@
 import { elementFactory } from "./factory";
+import { createProjectContent } from "./projects";
+import { createTodoClick } from "./add-card";
 
 function findElement() {
   const footerAdd = document.querySelector('.footer-add');
   const projectName = document.querySelector('.footer-container > input');
   const projectDiv = document.querySelector('.side-project-container');
-  return { footerAdd, projectName, projectDiv }
+  const allProjects = document.querySelectorAll('.side-project-title');
+  const mainContent = document.querySelector('.content');
+  return { footerAdd, projectName, projectDiv, allProjects, mainContent }
 }
 
 function createFooterClick() {
@@ -12,7 +16,6 @@ function createFooterClick() {
   add.addEventListener('click', function() {
     let projectName = findElement().projectName;
     createSideProject(projectName.value);
-    console.log(projectName);
     projectName.value = '';
   });
 }
@@ -22,8 +25,18 @@ function createSideProject(project) {
   const projectDiv = findElement().projectDiv;
 
   projectItem.textContent = project;
+  projectItem.addEventListener('click', function() {
+    loadProject(project);
+  });
 
   projectDiv.appendChild(projectItem);
+}
+
+function loadProject(prjName) {
+  const load = findElement().mainContent;
+  document.querySelector('.content > *').remove();
+  load.appendChild(createProjectContent(prjName));
+  createTodoClick();
 }
 
 export { createFooterClick };

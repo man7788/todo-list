@@ -120,14 +120,21 @@ function cardOutput (item, title, descript, date, priority) {
 
 function findElement() {
   const newButton = document.querySelector('.new-todo-div');
+  const newProject = document.querySelector('.new-project-div');
   const cardContainer = document.querySelector('.card-container');
 
-  return { newButton, cardContainer }
+  return { newButton, cardContainer, newProject }
 }
 
 function createTodoClick() {
   const target = findElement().newButton;
-  target.addEventListener('click', addCard);
+  const projectTarget = findElement().newProject;
+  if (target !== null) {
+    target.addEventListener('click', addCard);
+  }
+  if (projectTarget !== null) {
+    projectTarget.addEventListener('click', addCard);
+  }
 }
 
 function addCard() {

@@ -6,11 +6,12 @@ import { createInboxContent } from './inbox';
 
 function createDiv() {
   const contentDiv = elementFactory('content').element;
+
   return contentDiv;
 }
 
 function placeToContainer() {
-  const contentDiv = placeToParent();
+  const contentDiv = placeToParent().contentDiv;
   container.appendChild(createHeader());
   container.appendChild(createFooter());
   container.appendChild(createSide());
@@ -18,11 +19,11 @@ function placeToContainer() {
 }
 
 function placeToParent() {
-const contentDiv = createDiv();
+  const contentDiv = createDiv();
+  
+  contentDiv.appendChild(createInboxContent());
 
-contentDiv.appendChild(createInboxContent());
-
-return contentDiv;
+  return { contentDiv };
 }
 
 export { placeToContainer };

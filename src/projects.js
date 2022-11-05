@@ -1,26 +1,27 @@
 import { elementFactory } from "./factory";
 
-function createProjectContent() {
+function createProjectContent(project) {
   const projectContent = elementFactory('project-content').element;
-  const headerContent = createProjectHeader();
+  const headerContent = createProjectHeader(project);
+  const cardContainer = elementFactory('card-container').element;
 
-  projectContent.append(headerContent);
+  projectContent.append(headerContent, cardContainer);
 
   return projectContent;
 }
 
-function createProjectHeader() {
+function createProjectHeader(project) {
   const projectHeaderDiv = elementFactory('project-header-container').element;
   const projectTitle = elementFactory('project-title').element;
   const newProjectDiv = elementFactory('new-project-div').element;
   const projectAdd = elementFactory('project-add').element;
-  const newProject = elementFactory('new-project').element;
+  const projectTodo = elementFactory('project-todo').element;
 
-  projectTitle.textContent = 'Projects';
+  projectTitle.textContent = project;
   projectAdd.textContent = '+';
-  newProject.textContent = 'New Project';
+  projectTodo.textContent = 'New Todo';
 
-  newProjectDiv.append(projectAdd, newProject);
+  newProjectDiv.append(projectAdd, projectTodo);
   projectHeaderDiv.append(projectTitle, newProjectDiv);
 
   return projectHeaderDiv;
