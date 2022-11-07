@@ -92,6 +92,13 @@
   grid-template-columns: 1fr 5fr 1fr;
 }
 
+/* .storage-content {
+  color: whitesmoke;
+  display: grid;
+  grid-template-rows: 0.1fr 1fr 10fr;
+  grid-template-columns: 1fr 5fr 1fr;
+} */
+
 /* ////////////////////////////////////////Inbox Header  */
 .inbox-header-container,
 .project-header-container {

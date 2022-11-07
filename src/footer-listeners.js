@@ -1,14 +1,16 @@
 import { elementFactory } from "./factory";
 import { createProjectContent } from "./projects";
 import { createTodoClick } from "./add-card";
+import { putStorage, showStorage } from './storage';
 
 function findElement() {
   const footerAdd = document.querySelector('.footer-add');
   const projectName = document.querySelector('.footer-container > input');
   const projectDiv = document.querySelector('.side-project-container');
-  const allProjects = document.querySelectorAll('.side-project-title');
   const mainContent = document.querySelector('.content');
-  return { footerAdd, projectName, projectDiv, allProjects, mainContent }
+  const projectContent = document.querySelector('.project-content');
+  const wipeContent = document.querySelector('.content > *');
+  return { footerAdd, projectName, projectDiv, mainContent, projectContent, wipeContent }
 }
 
 function createFooterClick() {
@@ -26,17 +28,28 @@ function createSideProject(project) {
 
   projectItem.textContent = project;
   projectItem.addEventListener('click', function() {
-    loadProject(project);
-  });
-
+    loadProject(project, projectItem);
+    }, { once: true });
   projectDiv.appendChild(projectItem);
 }
 
-function loadProject(prjName) {
+function loadProject(project, sideDiv) {
   const load = findElement().mainContent;
-  document.querySelector('.content > *').remove();
-  load.appendChild(createProjectContent(prjName));
-  createTodoClick();
+  findElement().wipeContent.remove();
+  const projectContent = createProjectContent(project)
+  putStorage(project, projectContent);
+  showStorage();
+  load.appendChild(projectContent);
+  createTodoClick(); 
+  sideDiv.addEventListener('click', () => {
+    reloadProject(project)
+  });
+}
+
+function reloadProject(project) {
+  const load = findElement().mainContent;
+  findElement().wipeContent.remove();
+  load.appendChild(showStorage().storage[project]);
 }
 
 export { createFooterClick };

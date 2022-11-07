@@ -7,6 +7,7 @@ function createInboxContent() {
 
   inboxContent.append(headerContent, cardContainer);
 
+
   return inboxContent;
 }
 
