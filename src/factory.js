@@ -12,14 +12,15 @@ const formFactory = (cls) => {
   return { element };
 };
 
-const inputFactory = (type, plcholder) => {
+const inputFactory = (type, plcholder, value = '') => {
   const element = document.createElement('input');
   element.setAttribute('type', type);
   element.setAttribute('placeholder', plcholder);
+  element.value = value;
   return { element };
 }
 
-const selectFactory = (label, op1, op2, op3) => {
+const selectFactory = (label, op1, op2, op3, edit) => {
   const element = document.createElement('select');
   const group = document.createElement('optgroup');
   const option1 = document.createElement('option');
@@ -29,7 +30,7 @@ const selectFactory = (label, op1, op2, op3) => {
   group.setAttribute('label', label);
   option1.textContent = op1;
   option2.textContent = op2;
-  option2.setAttribute('selected', 'selected');
+  // option2.setAttribute('selected', 'selected');
   option3.textContent = op3;
   group.append(option1, option2, option3);
   element.append(group);

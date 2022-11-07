@@ -13,7 +13,7 @@ function addButtonListener(add, item, title, descript, date, priority) {
       title.value,
       descript.value,
       date.value,
-      priority.value,
+      priority,
     )
     item.remove();
   });
@@ -26,16 +26,17 @@ function expandButtonListener(expand, item, title, descript, date, priority) {
       title,
       descript,
       date,
-      priority
+      priority,
     )
     item.remove();
   });
 }
 
-function editButtonListener(edit, item, title, descript, date) {
+function editButtonListener(edit, item, title, descript, date, priority) {
   const target = findElement().cardContainer;
-  const editCard = cardFactory(title, descript, date, 'Save').cardItem;
+  const editCard = cardFactory('', '', '', 'Save', title, descript, date, priority).cardItem;
 
+  console.log(priority.selectedIndex);
   edit.addEventListener('click', function() {
     target.insertBefore(editCard, item);
     item.remove();
@@ -61,17 +62,22 @@ function editButtonListener(edit, item, title, descript, date) {
   });
 }
 
-const cardFactory = (title, descript, date) => {
+const cardFactory = (title, descript, date, button, editTitle, editDes, editDate, editPri) => {
   const cardItem = elementFactory('card-item').element;
   const form = formFactory('todo-form').element;
-  const cardTitle = inputFactory('text', title).element;
-  const cardDescript = inputFactory('text', descript).element;
-  const cardDate = inputFactory('date', date).element;
-  const cardPriority = selectFactory('Priority', 'High', 'Normal', 'Low').element;
-  const add = buttonFactory('button', 'add-button', 'Add').element;
+  const cardTitle = inputFactory('text', title, editTitle).element;
+  const cardDescript = inputFactory('text', descript, editDes).element;
+  const cardDate = inputFactory('date', date, editDate).element;
+  const cardPriority = selectFactory('Priority', 'High', 'Normal', 'Low', editPri).element;
+  const add = buttonFactory('button', 'add-button', button).element;
 
-  addButtonListener(add, cardItem, cardTitle, cardDescript, cardDate, cardPriority);
+  addButtonListener(add, cardItem, cardTitle, cardDescript, cardDate, cardPriority );
   
+  if (editPri !== undefined) {
+    let selected = editPri.selectedIndex;
+    cardPriority.options[selected].setAttribute('selected', 'selected');
+  }
+
   form.append(cardTitle, cardDescript, cardDate, cardPriority);
   cardItem.append(form, add);
 
@@ -108,8 +114,8 @@ function cardOutput (item, title, descript, date, priority) {
   cardTitle.textContent = title;
   cardDescript.textContent = descript;
   cardDate.textContent = date;
-  cardPriority.textContent = 'Priority: ' + priority;
-  
+  cardPriority.textContent = 'Priority: ' + priority.value;
+
   cardItem.append(cardTitle, cardDescript, cardDate, cardPriority, shrink, edit, del);
   cardContainer.insertBefore(cardItem, item)
 

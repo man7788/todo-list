@@ -1,7 +1,5 @@
 function putStorage(fileName, divName) {
-  let user = fileName;
-  let file = divName;
-  storage[user] = file;
+  storage[fileName] = divName;
 }
 
 const showStorage = () => {
@@ -11,4 +9,4 @@ const showStorage = () => {
 
 let storage = {};
 
-export { putStorage, showStorage, storage};
+export { putStorage, showStorage };

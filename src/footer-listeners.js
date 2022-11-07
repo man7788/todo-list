@@ -38,7 +38,6 @@ function loadProject(project, sideDiv) {
   findElement().wipeContent.remove();
   const projectContent = createProjectContent(project)
   putStorage(project, projectContent);
-  showStorage();
   load.appendChild(projectContent);
   createTodoClick(); 
   sideDiv.addEventListener('click', () => {
