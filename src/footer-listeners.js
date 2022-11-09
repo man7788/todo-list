@@ -17,6 +17,7 @@ function findElement() {
 
 function createFooterClick() {
   const add = findElement().footerAdd;
+  
   add.addEventListener('click', function() {
     let projectName = findElement().projectName;
     createSideProject(projectName.value);
@@ -33,18 +34,22 @@ function createSideProject(project) {
     loadProject(project, projectItem);
     }, { once: true });
   projectDiv.appendChild(projectItem);
+  
   putProject();
   findKeys();
 }
 
 function loadProject(project, sideDiv) {
   const load = findElement().mainContent;
+
   findElement().wipeContent.remove();
   const projectContent = createProjectContent(project)
   putStorage(project, projectContent);
   load.appendChild(projectContent);
+  
   createTodoClick(); 
   addToProject();
+
   sideDiv.addEventListener('click', () => {
     reloadProject(project)
   });
@@ -52,9 +57,11 @@ function loadProject(project, sideDiv) {
 
 function reloadProject(project) {
   const load = findElement().mainContent;
+
   findElement().wipeContent.remove();
   load.appendChild(showStorage().storage[project]);
   findElement().wipeSelect.remove();
+
   putProject();
   findKeys();
   addToProject();

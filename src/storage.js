@@ -10,11 +10,8 @@ function putStorage(fileName, divName) {
 
 const showStorage = () => {
   // console.log(projectList);
-  // console.log(storage);
-  // let jer = Object.keys(projectList);
-  // console.log(projectKeys);
-  // let jer = showKeys();
-  // console.log(jer);
+
+  console.log(projectKeys);
   return { storage };
 };
 
@@ -30,8 +27,9 @@ function putProject() {
 function findKeys() {
   projectKeys = [];
   const keys = Object.keys(projectList);
-  for (let i = 0; i < keys.length; i++);
-    projectKeys.push(keys);
+  for (let item of keys) {
+    projectKeys.push(item);
+  }
 }
 
 function showKeys() {

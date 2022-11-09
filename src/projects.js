@@ -16,13 +16,10 @@ function createProjectHeader(project) {
   const projectTitle = elementFactory('project-title').element;
   const newProjectDiv = elementFactory('new-project-div').element;
   const projectAdd = elementFactory('project-add').element;
-  // const addList = showKeys();
-  // const projectTodo = addPrjFactory('Add to project', addList);
 
   projectTitle.textContent = project;
   projectAdd.textContent = '+';
 
-  // newProjectDiv.append(projectAdd, projectTodo);
   newProjectDiv.append(projectAdd);
 
   projectHeaderDiv.append(projectTitle, newProjectDiv);

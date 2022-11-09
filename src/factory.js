@@ -49,20 +49,16 @@ const buttonFactory = (type, cls, text) => {
 const addPrjFactory = (label, ...ops) => {
   const element = document.createElement('select');
   const group = document.createElement('optgroup');
-
+  
+  console.log(ops);
   group.setAttribute('label', label);
-  let div = [];
 
   for (let i = 0; i <= ops.length; i++) {
-    div.push(document.createElement('option'));
+    let div = document.createElement('option');
+    div.textContent = ops[0][i];
+    group.append(div);
   }
 
-  for (let i = 0; i <= ops.length; i++) {
-   div[i].textContent = ops[i];
-   console.log(div);
-  }
-  // group.append(div[i]); 
-  // console.log(div);
   element.append(group);
 
   return { element };
