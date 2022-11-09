@@ -1,4 +1,5 @@
-import { elementFactory } from "./factory";
+import { elementFactory, addPrjFactory } from "./factory";
+import { showKeys } from "./storage";
 
 function createProjectContent(project) {
   const projectContent = elementFactory('project-content').element;
@@ -15,16 +16,25 @@ function createProjectHeader(project) {
   const projectTitle = elementFactory('project-title').element;
   const newProjectDiv = elementFactory('new-project-div').element;
   const projectAdd = elementFactory('project-add').element;
-  const projectTodo = elementFactory('project-todo').element;
+  // const addList = showKeys();
+  // const projectTodo = addPrjFactory('Add to project', addList);
 
   projectTitle.textContent = project;
   projectAdd.textContent = '+';
-  projectTodo.textContent = 'New Todo';
 
-  newProjectDiv.append(projectAdd, projectTodo);
+  // newProjectDiv.append(projectAdd, projectTodo);
+  newProjectDiv.append(projectAdd);
+
   projectHeaderDiv.append(projectTitle, newProjectDiv);
 
   return projectHeaderDiv;
 }
 
-export { createProjectContent };
+function addToProject() {
+  const addList = showKeys();
+  const list = addPrjFactory('Add to project', addList).element;
+  const div = document.querySelector('.new-project-div');
+  div.append(list);
+}
+
+export { createProjectContent, addToProject };

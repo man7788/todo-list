@@ -125,10 +125,6 @@
   align-items: center;
 }
 
-/* .new-project-div {
-  grid-template-columns: 1fr 1.5fr 130px;
-} */
-
 .inbox-add,
 .project-add {
   font-size: 3rem;
@@ -140,14 +136,20 @@
   padding-right: 0.5rem;
 }
 
-.new-todo,
-.project-todo {
+.new-todo {
   font-size: 1.5rem;
   position: relative;
   top: 0.5rem;
   width: fit-content;
 }
 
+.new-project-div select {
+  background: rgba(40, 40, 40, 0);
+  font-size: 1.5rem;
+  color: whitesmoke;
+  position: relative;
+  top: 0.5rem;
+}
 /* ////////////////////////////////////////Inbox Card  */
 .card-container {
   grid-row: 3 / 4;
@@ -174,7 +176,7 @@
 }
 
 input,
-select {
+.card-item select {
   background: rgba(40, 40, 40, 0);
   color: whitesmoke;
   font-size: 1.5rem;
@@ -194,7 +196,7 @@ select {
   grid-row: 3 / 4;
 }
 
-select {
+.card-item select {
 grid-row: 4 / 5;
 }
 

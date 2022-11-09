@@ -20,7 +20,7 @@ const inputFactory = (type, plcholder, value = '') => {
   return { element };
 }
 
-const selectFactory = (label, op1, op2, op3, edit) => {
+const selectFactory = (label, op1, op2, op3) => {
   const element = document.createElement('select');
   const group = document.createElement('optgroup');
   const option1 = document.createElement('option');
@@ -46,4 +46,26 @@ const buttonFactory = (type, cls, text) => {
   return { element }
 }
 
-export { elementFactory, inputFactory, formFactory, selectFactory, buttonFactory }
+const addPrjFactory = (label, ...ops) => {
+  const element = document.createElement('select');
+  const group = document.createElement('optgroup');
+
+  group.setAttribute('label', label);
+  let div = [];
+
+  for (let i = 0; i <= ops.length; i++) {
+    div.push(document.createElement('option'));
+  }
+
+  for (let i = 0; i <= ops.length; i++) {
+   div[i].textContent = ops[i];
+   console.log(div);
+  }
+  // group.append(div[i]); 
+  // console.log(div);
+  element.append(group);
+
+  return { element };
+}
+
+export { elementFactory, inputFactory, formFactory, selectFactory, buttonFactory, addPrjFactory }

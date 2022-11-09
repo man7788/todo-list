@@ -3,7 +3,7 @@ import {
   formFactory, 
   inputFactory, 
   selectFactory, 
-  buttonFactory 
+  buttonFactory
 } from './factory';
 
 function addButtonListener(add, item, title, descript, date, priority) {
@@ -43,23 +43,23 @@ function editButtonListener(edit, item, title, descript, date, priority) {
   });
 }
 
-  function delButtonListener(del, item) {
-    del.addEventListener('click', function() {
-      item.remove();
-    });
-  }
-
-  function shrinkButtonListener(shrink, item, title, descript, date, priority) {
-    shrink.addEventListener('click', function() {
-      cardShrink(
-        item,
-        title,
-        descript,
-        date,
-        priority,
-      )
-      item.remove();
+function delButtonListener(del, item) {
+  del.addEventListener('click', function() {
+    item.remove();
   });
+}
+
+function shrinkButtonListener(shrink, item, title, descript, date, priority) {
+  shrink.addEventListener('click', function() {
+    cardShrink(
+      item,
+      title,
+      descript,
+      date,
+      priority,
+    )
+    item.remove();
+});
 }
 
 const cardFactory = (title, descript, date, button, editTitle, editDes, editDate, editPri) => {
@@ -126,20 +126,16 @@ function cardOutput (item, title, descript, date, priority) {
 
 function findElement() {
   const newButton = document.querySelector('.new-todo-div');
-  const newProject = document.querySelector('.new-project-div');
   const cardContainer = document.querySelector('.card-container');
 
-  return { newButton, cardContainer, newProject }
+  return { newButton, cardContainer }
+
 }
 
 function createTodoClick() {
   const target = findElement().newButton;
-  const projectTarget = findElement().newProject;
   if (target !== null) {
     target.addEventListener('click', addCard);
-  }
-  if (projectTarget !== null) {
-    projectTarget.addEventListener('click', addCard);
   }
 }
 

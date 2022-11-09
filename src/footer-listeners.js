@@ -1,7 +1,7 @@
 import { elementFactory } from "./factory";
-import { createProjectContent } from "./projects";
+import { createProjectContent, addToProject } from "./projects";
 import { createTodoClick } from "./add-card";
-import { putStorage, showStorage } from './storage';
+import { putStorage, showStorage, putProject, findKeys } from './storage';
 
 function findElement() {
   const footerAdd = document.querySelector('.footer-add');
@@ -10,7 +10,9 @@ function findElement() {
   const mainContent = document.querySelector('.content');
   const projectContent = document.querySelector('.project-content');
   const wipeContent = document.querySelector('.content > *');
-  return { footerAdd, projectName, projectDiv, mainContent, projectContent, wipeContent }
+  const wipeSelect = document.querySelector('.new-project-div select');
+  return { footerAdd, projectName, projectDiv, mainContent, 
+    projectContent, wipeContent, wipeSelect }
 }
 
 function createFooterClick() {
@@ -31,6 +33,8 @@ function createSideProject(project) {
     loadProject(project, projectItem);
     }, { once: true });
   projectDiv.appendChild(projectItem);
+  putProject();
+  findKeys();
 }
 
 function loadProject(project, sideDiv) {
@@ -40,6 +44,7 @@ function loadProject(project, sideDiv) {
   putStorage(project, projectContent);
   load.appendChild(projectContent);
   createTodoClick(); 
+  addToProject();
   sideDiv.addEventListener('click', () => {
     reloadProject(project)
   });
@@ -49,6 +54,10 @@ function reloadProject(project) {
   const load = findElement().mainContent;
   findElement().wipeContent.remove();
   load.appendChild(showStorage().storage[project]);
+  findElement().wipeSelect.remove();
+  putProject();
+  findKeys();
+  addToProject();
 }
 
 export { createFooterClick };
