@@ -1,5 +1,5 @@
 import { elementFactory, addPrjFactory } from "./factory";
-import { showKeys } from "./storage";
+import { showKeys, showStorage, findKeys } from "./storage";
 
 function createProjectContent(project) {
   const projectContent = elementFactory('project-content').element;
@@ -34,4 +34,21 @@ function addToProject() {
   div.append(list);
 }
 
-export { createProjectContent, addToProject };
+function addProjectCard() {
+  const add = document.querySelector('.project-add');
+  const content = document.querySelector('.card-container');
+  const storage = showStorage().storage;
+  const children = storage['inbox'].children[1].children
+  
+  add.addEventListener('click', function() {
+    const selected = document.querySelector('.new-project-div select').selectedIndex;
+    if (children.length != 0) {
+      content.append(children[selected]);
+    } else { return };
+    document.querySelector('.new-project-div select').remove();
+    findKeys();
+    addToProject()
+  });
+}
+
+export { createProjectContent, addToProject, addProjectCard };

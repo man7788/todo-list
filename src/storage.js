@@ -9,22 +9,20 @@ function putStorage(fileName, divName) {
 }
 
 const showStorage = () => {
-  // console.log(projectList);
-
+  console.log(storage);
   console.log(projectKeys);
+  console.log(projectList);
+  console.log(storage['inbox'].children[1].children);
   return { storage };
 };
 
-function putProject() {
+function findKeys() {
   projectList = {};
   const itemList = storage['inbox'].children[1].children;
   for (let i = 0; i < itemList.length; i++) {
     let project = itemList[i].children[0].textContent;
     projectList[project] = itemList[i];
   }
-}
-
-function findKeys() {
   projectKeys = [];
   const keys = Object.keys(projectList);
   for (let item of keys) {
@@ -36,4 +34,4 @@ function showKeys() {
   return projectKeys;
 }
 
-export { putStorage, showStorage, putProject, findKeys, showKeys };
+export { putStorage, showStorage, findKeys, showKeys };

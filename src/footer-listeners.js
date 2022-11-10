@@ -1,7 +1,6 @@
 import { elementFactory } from "./factory";
-import { createProjectContent, addToProject } from "./projects";
-import { createTodoClick } from "./add-card";
-import { putStorage, showStorage, putProject, findKeys } from './storage';
+import { createProjectContent, addToProject, addProjectCard } from "./projects";
+import { putStorage, showStorage, findKeys } from './storage';
 
 function findElement() {
   const footerAdd = document.querySelector('.footer-add');
@@ -11,13 +10,14 @@ function findElement() {
   const projectContent = document.querySelector('.project-content');
   const wipeContent = document.querySelector('.content > *');
   const wipeSelect = document.querySelector('.new-project-div select');
+  const inboxContent = document.querySelector('.inbox-content');
   return { footerAdd, projectName, projectDiv, mainContent, 
-    projectContent, wipeContent, wipeSelect }
+    projectContent, wipeContent, wipeSelect, inboxContent }
 }
 
 function createFooterClick() {
   const add = findElement().footerAdd;
-  
+
   add.addEventListener('click', function() {
     let projectName = findElement().projectName;
     createSideProject(projectName.value);
@@ -30,12 +30,14 @@ function createSideProject(project) {
   const projectDiv = findElement().projectDiv;
 
   projectItem.textContent = project;
+
   projectItem.addEventListener('click', function() {
     loadProject(project, projectItem);
-    }, { once: true });
-  projectDiv.appendChild(projectItem);
+    addProjectCard()
+  }, { once: true });
   
-  putProject();
+  projectDiv.appendChild(projectItem);
+
   findKeys();
 }
 
@@ -47,23 +49,20 @@ function loadProject(project, sideDiv) {
   putStorage(project, projectContent);
   load.appendChild(projectContent);
   
-  createTodoClick(); 
   addToProject();
 
-  sideDiv.addEventListener('click', () => {
+  sideDiv.addEventListener('click', function() {
+    findKeys();
     reloadProject(project)
   });
 }
 
 function reloadProject(project) {
   const load = findElement().mainContent;
-
   findElement().wipeContent.remove();
   load.appendChild(showStorage().storage[project]);
   findElement().wipeSelect.remove();
 
-  putProject();
-  findKeys();
   addToProject();
 }
 

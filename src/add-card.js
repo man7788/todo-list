@@ -36,7 +36,6 @@ function editButtonListener(edit, item, title, descript, date, priority) {
   const target = findElement().cardContainer;
   const editCard = cardFactory('', '', '', 'Save', title, descript, date, priority).cardItem;
 
-  console.log(priority.selectedIndex);
   edit.addEventListener('click', function() {
     target.insertBefore(editCard, item);
     item.remove();
