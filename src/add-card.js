@@ -61,6 +61,22 @@ function shrinkButtonListener(shrink, item, title, descript, date, priority) {
 });
 }
 
+function changeColor(value, item) {
+  switch (value) {
+    case 'High':
+      item.style.background = "rgba(255, 0, 0, 0.4)";
+      break;
+    case 'Normal':
+      item.style.background = "rgba(0, 128, 0, 0.4)";
+      break;  
+    case 'Low':
+      item.style.background = "rgba(0, 0, 255, 0.4)";
+      break;
+    default:
+      item.style.background = "rgba(40, 40, 40)";
+  }
+}
+
 const cardFactory = (title, descript, date, button, editTitle, editDes, editDate, editPri) => {
   const cardItem = elementFactory('card-item').element;
   const form = formFactory('todo-form').element;
@@ -92,6 +108,8 @@ function cardShrink(item, title, descript, date, priority) {
 
   cardTitle.textContent = title;
 
+  changeColor(priority.value, cardItem);
+
   cardItem.append(cardTitle, expand, del)
   cardContainer.insertBefore(cardItem, item)
 
@@ -114,6 +132,8 @@ function cardOutput (item, title, descript, date, priority) {
   cardDescript.textContent = descript;
   cardDate.textContent = date;
   cardPriority.textContent = 'Priority: ' + priority.value;
+
+  changeColor(priority.value, cardItem);
 
   cardItem.append(cardTitle, cardDescript, cardDate, cardPriority, shrink, edit, del);
   cardContainer.insertBefore(cardItem, item)
