@@ -5,6 +5,7 @@ import {
   selectFactory, 
   buttonFactory
 } from './factory';
+import { cardData, putJSON} from './storage';
 
 function addButtonListener(add, item, title, descript, date, priority) {
   add.addEventListener('click', function() {
@@ -16,6 +17,9 @@ function addButtonListener(add, item, title, descript, date, priority) {
       priority,
     )
     item.remove();
+    //------------------------------------------------------------------------------------------------
+    const output = cardData(title.value, descript.value, date.value, priority.value).data;
+    putJSON('inbox' ,title.value, output);
   });
 }
 
@@ -87,11 +91,11 @@ const cardFactory = (title, descript, date, button, editTitle, editDes, editDate
   const add = buttonFactory('button', 'add-button', button).element;
 
   addButtonListener(add, cardItem, cardTitle, cardDescript, cardDate, cardPriority );
-  
-  if (editPri !== undefined) {
-    let selected = editPri.selectedIndex;
-    cardPriority.options[selected].setAttribute('selected', 'selected');
-  }
+
+  // if (editPri !== undefined) {
+  //   let selected = editPri.selectedIndex;
+  //   cardPriority.options[selected].setAttribute('selected', 'selected');
+  // }
 
   form.append(cardTitle, cardDescript, cardDate, cardPriority);
   cardItem.append(form, add);
@@ -107,11 +111,19 @@ function cardShrink(item, title, descript, date, priority) {
   const del = buttonFactory('button', 'del-button', 'X').element;
 
   cardTitle.textContent = title;
-
-  changeColor(priority.value, cardItem);
+  
+  if (typeof priority === 'string') {
+    changeColor(priority, cardItem);
+  } else {
+    changeColor(priority.value, cardItem);
+  }
 
   cardItem.append(cardTitle, expand, del)
-  cardContainer.insertBefore(cardItem, item)
+  if (item == '') {
+    cardContainer.append(cardItem)
+  } else { 
+    cardContainer.insertBefore(cardItem, item)
+  }
 
   expandButtonListener(expand, cardItem, title, descript, date, priority);
   delButtonListener(del, cardItem);
@@ -131,9 +143,14 @@ function cardOutput (item, title, descript, date, priority) {
   cardTitle.textContent = title;
   cardDescript.textContent = descript;
   cardDate.textContent = date;
-  cardPriority.textContent = 'Priority: ' + priority.value;
 
-  changeColor(priority.value, cardItem);
+  if (typeof priority === 'string') {
+    cardPriority.textContent = 'Priority: ' + priority;
+    changeColor(priority, cardItem);
+  } else {
+    cardPriority.textContent = 'Priority: ' + priority.value;
+    changeColor(priority.value, cardItem);
+  }
 
   cardItem.append(cardTitle, cardDescript, cardDate, cardPriority, shrink, edit, del);
   cardContainer.insertBefore(cardItem, item)
@@ -153,9 +170,7 @@ function findElement() {
 
 function createTodoClick() {
   const target = findElement().newButton;
-  if (target !== null) {
-    target.addEventListener('click', addCard);
-  }
+  target.addEventListener('click', addCard);
 }
 
 function addCard() {
@@ -164,4 +179,4 @@ function addCard() {
   target.appendChild(newCard);
 }
 
-export { createTodoClick };
+export { createTodoClick, cardShrink };

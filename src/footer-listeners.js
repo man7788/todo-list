@@ -1,6 +1,6 @@
 import { elementFactory } from "./factory";
 import { createProjectContent, addToProject, addProjectCard } from "./projects";
-import { putStorage, showStorage, findKeys } from './storage';
+import { putStorage, showStorage, findKeys, cardData, putJSON } from './storage';
 
 function findElement() {
   const footerAdd = document.querySelector('.footer-add');
@@ -30,15 +30,18 @@ function createSideProject(project) {
   const projectDiv = findElement().projectDiv;
 
   projectItem.textContent = project;
-
+  //------------------------------------------------------------------------------------------------
+  
   projectItem.addEventListener('click', function() {
+    // const output = cardData(project).data;
+    // putJSON('side', project, output);
     loadProject(project, projectItem);
     addProjectCard()
   }, { once: true });
   
   projectDiv.appendChild(projectItem);
 
-  findKeys();
+  // findKeys();
 }
 
 function loadProject(project, sideDiv) {
@@ -49,10 +52,10 @@ function loadProject(project, sideDiv) {
   putStorage(project, projectContent);
   load.appendChild(projectContent);
   
-  addToProject();
+  // addToProject();
 
   sideDiv.addEventListener('click', function() {
-    findKeys();
+    // findKeys();
     reloadProject(project)
   });
 }
@@ -61,9 +64,9 @@ function reloadProject(project) {
   const load = findElement().mainContent;
   findElement().wipeContent.remove();
   load.appendChild(showStorage().storage[project]);
-  findElement().wipeSelect.remove();
+  // findElement().wipeSelect.remove();
 
-  addToProject();
+  // addToProject();
 }
 
 export { createFooterClick };
