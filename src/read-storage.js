@@ -1,5 +1,6 @@
 import { placeToContainer } from "./layout";
 import { cardShrink } from "./add-card";
+import { createSideProject } from "./footer-listeners";
 
 //Check if stroage exsists
 //If not, just do normal layout
@@ -25,7 +26,7 @@ function loadStorage(key, type) {
   if (type == 'inbox') {
     cardShrink('', title, discript, date, priority);
   } else if (type == 'side') {
-    return;
+    createSideProject(title);
   }
 
   console.log(localStorage);

@@ -21,6 +21,9 @@ function createFooterClick() {
   add.addEventListener('click', function() {
     let projectName = findElement().projectName;
     createSideProject(projectName.value);
+    //------------------------------------------------------------------------------------------------
+    const output = cardData(projectName.value).data;
+    putJSON('side', projectName.value, output);
     projectName.value = '';
   });
 }
@@ -30,14 +33,11 @@ function createSideProject(project) {
   const projectDiv = findElement().projectDiv;
 
   projectItem.textContent = project;
-  //------------------------------------------------------------------------------------------------
   
   projectItem.addEventListener('click', function() {
-    // const output = cardData(project).data;
-    // putJSON('side', project, output);
     loadProject(project, projectItem);
-    addProjectCard()
-  }, { once: true });
+    // addProjectCard();
+  }, { once: false });
   
   projectDiv.appendChild(projectItem);
 
@@ -49,24 +49,24 @@ function loadProject(project, sideDiv) {
 
   findElement().wipeContent.remove();
   const projectContent = createProjectContent(project)
-  putStorage(project, projectContent);
+  // putStorage(project, projectContent);
   load.appendChild(projectContent);
   
   // addToProject();
 
-  sideDiv.addEventListener('click', function() {
+  // sideDiv.addEventListener('click', function() {
     // findKeys();
-    reloadProject(project)
-  });
+    // reloadProject(project)
+  // });
 }
 
-function reloadProject(project) {
-  const load = findElement().mainContent;
-  findElement().wipeContent.remove();
-  load.appendChild(showStorage().storage[project]);
-  // findElement().wipeSelect.remove();
+// function reloadProject(project) {
+//   const load = findElement().mainContent;
+//   findElement().wipeContent.remove();
+//   load.appendChild(showStorage().storage[project]);
+//   findElement().wipeSelect.remove();
 
-  // addToProject();
-}
+//   addToProject();
+// }
 
-export { createFooterClick };
+export { createFooterClick, createSideProject };

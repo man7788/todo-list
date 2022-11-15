@@ -20,11 +20,24 @@ function createSideClick() {
 
 function loadInbox() {
   const load = findElement().mainContent;
-  findElement().wipeContent.remove();
-  // load.appendChild(showStorage().storage['inbox']);
-  createInboxContent();
-  checkStorage('inbox');
-  createTodoClick();
+
+  const p1 = new Promise((resolve) => {
+    resolve(findElement().wipeContent.remove())
+  });
+
+  const p2 = new Promise((resolve) => {
+    const clean = createInboxContent();
+    resolve(load.append(clean));
+  });
+  
+  p1.then(() => {
+    p2.then (() => {
+      checkStorage('inbox');
+    });
+  });
+    
+  // createTodoClick();
 }
+
 
 export { createSideClick }
