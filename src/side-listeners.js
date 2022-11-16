@@ -1,5 +1,4 @@
 import { createTodoClick } from './add-card';
-import { putStorage, showStorage , cardData } from './storage';
 import { checkStorage } from './read-storage';
 import { createInboxContent } from './inbox';
 
@@ -14,7 +13,6 @@ function findElement() {
 
 function createSideClick() {
   const inbox = findElement().menuInbox;
-  // putStorage('inbox', findElement().inboxContent);
   inbox.addEventListener('click', loadInbox);
 }
 
@@ -36,7 +34,7 @@ function loadInbox() {
     });
   });
     
-  // createTodoClick();
+  createTodoClick();
 }
 
 

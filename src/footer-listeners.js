@@ -1,6 +1,6 @@
 import { elementFactory } from "./factory";
 import { createProjectContent, addToProject, addProjectCard } from "./projects";
-import { putStorage, showStorage, findKeys, cardData, putJSON } from './storage';
+import { cardData, putJSON } from './storage';
 
 function findElement() {
   const footerAdd = document.querySelector('.footer-add');
@@ -36,23 +36,20 @@ function createSideProject(project) {
   
   projectItem.addEventListener('click', function() {
     loadProject(project, projectItem);
-    // addProjectCard();
-  }, { once: false });
+    addProjectCard();
+  });
   
   projectDiv.appendChild(projectItem);
-
-  // findKeys();
 }
 
-function loadProject(project, sideDiv) {
+function loadProject(project) {
   const load = findElement().mainContent;
 
   findElement().wipeContent.remove();
   const projectContent = createProjectContent(project)
-  // putStorage(project, projectContent);
   load.appendChild(projectContent);
   
-  // addToProject();
+  addToProject();
 
   // sideDiv.addEventListener('click', function() {
     // findKeys();

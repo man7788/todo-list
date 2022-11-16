@@ -1,6 +1,7 @@
 import { placeToContainer } from "./layout";
 import { cardShrink } from "./add-card";
 import { createSideProject } from "./footer-listeners";
+import { addToProject } from "./projects";
 
 //Check if stroage exsists
 //If not, just do normal layout
@@ -21,24 +22,29 @@ function loadStorage(key, type) {
   const date = data[key]['date'];
   const priority = data[key]['priority'];
 
-  console.log(title, discript, date, priority);
-
   if (type == 'inbox') {
     cardShrink('', title, discript, date, priority);
   } else if (type == 'side') {
     createSideProject(title);
   }
-
-  console.log(localStorage);
 }
 
 function findStorage(type) {
   const keyList = Object.keys(JSON.parse(localStorage[type]));
-
-  console.log(keyList);
   for (let i = 0; i < keyList.length; i++) {
     loadStorage(keyList[i], type);
   }
 }
 
-export { checkStorage };
+function findKeys() {
+  const keyList = Object.keys(JSON.parse(localStorage['inbox']));
+  return keyList;
+}
+
+function findSelect(key) {
+  const keyList = JSON.parse(localStorage['inbox']);
+  return keyList[key];
+
+}
+
+export { checkStorage, findStorage, findKeys, findSelect, loadStorage };
