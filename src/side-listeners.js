@@ -2,6 +2,7 @@ import { createTodoClick } from './add-card';
 import { checkStorage } from './read-storage';
 import { createInboxContent } from './inbox';
 
+
 function findElement() {
   const menuInbox = document.querySelector('.side-button:nth-child(1)');
   const mainContent = document.querySelector('.content');

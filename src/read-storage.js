@@ -26,6 +26,8 @@ function loadStorage(key, type) {
     cardShrink('', title, discript, date, priority);
   } else if (type == 'side') {
     createSideProject(title);
+  } else {
+    cardShrink('', title, discript, date, priority);
   }
 }
 
@@ -44,7 +46,6 @@ function findKeys() {
 function findSelect(key) {
   const keyList = JSON.parse(localStorage['inbox']);
   return keyList[key];
-
 }
 
 export { checkStorage, findStorage, findKeys, findSelect, loadStorage };

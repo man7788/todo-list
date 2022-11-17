@@ -30,7 +30,6 @@ const selectFactory = (label, op1, op2, op3) => {
   group.setAttribute('label', label);
   option1.textContent = op1;
   option2.textContent = op2;
-  // option2.setAttribute('selected', 'selected');
   option3.textContent = op3;
   group.append(option1, option2, option3);
   element.append(group);
@@ -57,7 +56,7 @@ const addPrjFactory = (label, ...ops) => {
     div.textContent = ops[0][i];
     group.append(div);
   }
-  
+
   element.append(group);
 
   return { element };

@@ -46,9 +46,11 @@ function addProjectCard() {
     const data = findSelect(value);
 
     
-    // Copy inbox data in to new project data
+    // Copy inbox data to project data
+    // Remove data from inbox storage
+    // Load project todo from storage
     loadStorage(value, 'inbox');
-    putJSON('project', title, data);
+    putJSON(title, value, data);
     
     selected[index].remove();
   });

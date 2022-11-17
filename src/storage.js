@@ -18,9 +18,16 @@ function putJSON(type, key, value) {
     let text = JSON.parse(localStorage.getItem(type));
     text[key] = value
     localStorage.setItem(type, JSON.stringify(text));
-    console.log(text);
+    // console.log(text);
   }
   console.log(localStorage);
 }
 
-export { cardData, putJSON };
+function removeJSON(type, key) {
+  let text = JSON.parse(localStorage.getItem(type));
+  // console.log(text);
+  delete text[key];
+  localStorage.setItem(type, JSON.stringify(text));
+}
+
+export { cardData, putJSON, removeJSON };

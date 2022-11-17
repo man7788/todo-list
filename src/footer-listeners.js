@@ -1,18 +1,16 @@
 import { elementFactory } from "./factory";
 import { createProjectContent, addToProject, addProjectCard } from "./projects";
 import { cardData, putJSON } from './storage';
+import { checkStorage } from "./read-storage";
 
 function findElement() {
   const footerAdd = document.querySelector('.footer-add');
   const projectName = document.querySelector('.footer-container > input');
   const projectDiv = document.querySelector('.side-project-container');
   const mainContent = document.querySelector('.content');
-  const projectContent = document.querySelector('.project-content');
   const wipeContent = document.querySelector('.content > *');
-  const wipeSelect = document.querySelector('.new-project-div select');
-  const inboxContent = document.querySelector('.inbox-content');
   return { footerAdd, projectName, projectDiv, mainContent, 
-    projectContent, wipeContent, wipeSelect, inboxContent }
+    wipeContent }
 }
 
 function createFooterClick() {
@@ -37,6 +35,7 @@ function createSideProject(project) {
   projectItem.addEventListener('click', function() {
     loadProject(project, projectItem);
     addProjectCard();
+    addToProject();
   });
   
   projectDiv.appendChild(projectItem);
@@ -48,22 +47,6 @@ function loadProject(project) {
   findElement().wipeContent.remove();
   const projectContent = createProjectContent(project)
   load.appendChild(projectContent);
-  
-  addToProject();
-
-  // sideDiv.addEventListener('click', function() {
-    // findKeys();
-    // reloadProject(project)
-  // });
+  checkStorage(project);
 }
-
-// function reloadProject(project) {
-//   const load = findElement().mainContent;
-//   findElement().wipeContent.remove();
-//   load.appendChild(showStorage().storage[project]);
-//   findElement().wipeSelect.remove();
-
-//   addToProject();
-// }
-
 export { createFooterClick, createSideProject };

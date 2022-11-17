@@ -5,7 +5,7 @@ import {
   selectFactory, 
   buttonFactory
 } from './factory';
-import { cardData, putJSON} from './storage';
+import { cardData, putJSON, removeJSON} from './storage';
 
 function addButtonListener(add, item, title, descript, date, priority) {
   add.addEventListener('click', function() {
@@ -19,7 +19,7 @@ function addButtonListener(add, item, title, descript, date, priority) {
     item.remove();
     //------------------------------------------------------------------------------------------------
     const output = cardData(title.value, descript.value, date.value, priority.value).data;
-    putJSON('inbox' ,title.value, output);
+    putJSON('inbox', title.value, output);
   });
 }
 
@@ -46,8 +46,9 @@ function editButtonListener(edit, item, title, descript, date, priority) {
   });
 }
 
-function delButtonListener(del, item) {
+function delButtonListener(del, item, type, key) {
   del.addEventListener('click', function() {
+    removeJSON(type, key);
     item.remove();
   });
 }
@@ -90,13 +91,21 @@ const cardFactory = (title, descript, date, button, editTitle, editDes, editDate
   const cardPriority = selectFactory('Priority', 'High', 'Normal', 'Low', editPri).element;
   const add = buttonFactory('button', 'add-button', button).element;
 
-  addButtonListener(add, cardItem, cardTitle, cardDescript, cardDate, cardPriority );
+  addButtonListener(add, cardItem, cardTitle, cardDescript, cardDate, cardPriority);
 
-  // if (editPri !== undefined) {
-  //   let selected = editPri.selectedIndex;
-  //   cardPriority.options[selected].setAttribute('selected', 'selected');
-  // }
-
+  if (editPri !== undefined) {
+    if (typeof editPri === 'string') {
+      for (let i = 0; i < cardPriority.options.length; i++) {
+        if (cardPriority.options[i].textContent == editPri) {
+          cardPriority.options[i].setAttribute('selected', 'selected');
+        }
+      }
+    } else {
+      let selected = editPri.selectedIndex;
+      cardPriority.options[selected].setAttribute('selected', 'selected');
+    }
+  }
+  
   form.append(cardTitle, cardDescript, cardDate, cardPriority);
   cardItem.append(form, add);
 
@@ -109,6 +118,8 @@ function cardShrink(item, title, descript, date, priority) {
   const cardTitle = elementFactory('card-title-shrink').element;
   const expand = buttonFactory('button', 'expand-button', 'Expand').element;
   const del = buttonFactory('button', 'del-button', 'X').element;
+  const inboxTitle = findElement().inboxTitle;
+  const projectTitle = findElement().projectTitle;
 
   cardTitle.textContent = title;
   
@@ -125,8 +136,16 @@ function cardShrink(item, title, descript, date, priority) {
     cardContainer.insertBefore(cardItem, item)
   }
 
+  if (inboxTitle !== null) {
+    delButtonListener(del, cardItem, inboxTitle.textContent.toLowerCase(), cardTitle.textContent );
+    console.log('yes');
+  } else {
+    delButtonListener(del, cardItem, projectTitle.textContent, cardTitle.textContent );
+    console.log('no');
+  }
+
   expandButtonListener(expand, cardItem, title, descript, date, priority);
-  delButtonListener(del, cardItem);
+  // delButtonListener(del, cardItem);
 }
 
 function cardOutput (item, title, descript, date, priority) {
@@ -139,6 +158,8 @@ function cardOutput (item, title, descript, date, priority) {
   const edit = buttonFactory('button', 'edit-button','Edit').element;
   const del = buttonFactory('button', 'del-button', 'X').element;
   const shrink = buttonFactory('button', 'shrink-button', 'Shrink').element;
+  const inboxTitle = findElement().inboxTitle;
+  const projectTitle = findElement().projectTitle;
 
   cardTitle.textContent = title;
   cardDescript.textContent = descript;
@@ -154,17 +175,27 @@ function cardOutput (item, title, descript, date, priority) {
 
   cardItem.append(cardTitle, cardDescript, cardDate, cardPriority, shrink, edit, del);
   cardContainer.insertBefore(cardItem, item)
+  
+  if (inboxTitle !== null) {
+    delButtonListener(del, cardItem, inboxTitle.textContent.toLowerCase(), cardTitle.textContent );
+    console.log('yes');
+  } else {
+    delButtonListener(del, cardItem, projectTitle.textContent, cardTitle.textContent );
+    console.log('no');
+  }
 
   editButtonListener(edit, cardItem, title, descript, date, priority);
-  delButtonListener(del, cardItem);
   shrinkButtonListener(shrink, cardItem, title, descript, date, priority);
 }
 
 function findElement() {
   const newButton = document.querySelector('.new-todo-div');
   const cardContainer = document.querySelector('.card-container');
+  const inboxTitle = document.querySelector('.inbox-title');
+  const projectTitle = document.querySelector('.project-title');
 
-  return { newButton, cardContainer }
+
+  return { newButton, cardContainer, inboxTitle, projectTitle }
 
 }
 
