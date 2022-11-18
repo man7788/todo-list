@@ -6,9 +6,10 @@ import {
   buttonFactory
 } from './factory';
 import { cardData, putJSON, removeJSON} from './storage';
+import { findKeys } from './read-storage';
 
 function addButtonListener(add, item, title, descript, date, priority) {
-  add.addEventListener('click', function() {
+  add.addEventListener('click', function(e) {
     cardShrink(
       item,
       title.value,
@@ -19,10 +20,19 @@ function addButtonListener(add, item, title, descript, date, priority) {
     item.remove();
     //------------------------------------------------------------------------------------------------
     const output = cardData(title.value, descript.value, date.value, priority.value).data;
-    putJSON('inbox', title.value, output);
+    
+
+    const regex = /.+/;
+    let text = e.path[3].innerText;
+    let result = regex.exec(text);
+    let type = result[0];
+    if (type !== 'Inbox') {
+      putJSON(type, title.value, output);
+    } else {
+      putJSON('inbox', title.value, output);
+    }
   });
 }
-
 function expandButtonListener(expand, item, title, descript, date, priority) {
   expand.addEventListener('click', function() {
     cardOutput( 
@@ -175,10 +185,8 @@ function cardOutput (item, title, descript, date, priority) {
   
   if (inboxTitle !== null) {
     delButtonListener(del, cardItem, inboxTitle.textContent.toLowerCase(), cardTitle.textContent );
-    console.log('yes');
   } else {
     delButtonListener(del, cardItem, projectTitle.textContent, cardTitle.textContent );
-    console.log('no');
   }
 
   editButtonListener(edit, cardItem, title, descript, date, priority);
