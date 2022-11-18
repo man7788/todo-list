@@ -138,14 +138,11 @@ function cardShrink(item, title, descript, date, priority) {
 
   if (inboxTitle !== null) {
     delButtonListener(del, cardItem, inboxTitle.textContent.toLowerCase(), cardTitle.textContent );
-    console.log('yes');
   } else {
     delButtonListener(del, cardItem, projectTitle.textContent, cardTitle.textContent );
-    console.log('no');
   }
 
   expandButtonListener(expand, cardItem, title, descript, date, priority);
-  // delButtonListener(del, cardItem);
 }
 
 function cardOutput (item, title, descript, date, priority) {
@@ -193,7 +190,6 @@ function findElement() {
   const cardContainer = document.querySelector('.card-container');
   const inboxTitle = document.querySelector('.inbox-title');
   const projectTitle = document.querySelector('.project-title');
-
 
   return { newButton, cardContainer, inboxTitle, projectTitle }
 

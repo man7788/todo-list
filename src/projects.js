@@ -28,9 +28,21 @@ function createProjectHeader(project) {
   return projectHeaderDiv;
 }
 
-function addToProject() {
-  const addList = findKeys('project');
-  const list = addPrjFactory('Add to project', addList).element;
+//Remove option if already in project
+//Edit button only change current card
+
+function addToProject(project) {
+  let addList = findKeys('inbox');
+  let removeList = findKeys(project);
+  let newList = [];
+
+  addList.forEach(item => {
+    if (!removeList.includes(item)) {
+      newList.push(item);
+    }
+  }); 
+  
+  const list = addPrjFactory('Add to project', newList).element;
   const div = document.querySelector('.new-project-div');
   div.append(list);
 }
@@ -45,10 +57,6 @@ function addProjectCard() {
     const index = selected.selectedIndex;
     const data = findSelect(value);
 
-    
-    // Copy inbox data to project data
-    // Remove data from inbox storage
-    // Load project todo from storage
     loadStorage(value, 'inbox');
     putJSON(title, value, data);
     

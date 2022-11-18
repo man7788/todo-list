@@ -23,9 +23,9 @@ function putJSON(type, key, value) {
   console.log(localStorage);
 }
 
+
 function removeJSON(type, key) {
   let text = JSON.parse(localStorage.getItem(type));
-  // console.log(text);
   delete text[key];
   localStorage.setItem(type, JSON.stringify(text));
 }

@@ -22,6 +22,7 @@ function createFooterClick() {
     //------------------------------------------------------------------------------------------------
     const output = cardData(projectName.value).data;
     putJSON('side', projectName.value, output);
+    putJSON(projectName.value);
     projectName.value = '';
   });
 }
@@ -35,7 +36,7 @@ function createSideProject(project) {
   projectItem.addEventListener('click', function() {
     loadProject(project, projectItem);
     addProjectCard();
-    addToProject();
+    addToProject(project);
   });
   
   projectDiv.appendChild(projectItem);

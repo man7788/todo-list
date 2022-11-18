@@ -38,8 +38,8 @@ function findStorage(type) {
   }
 }
 
-function findKeys() {
-  const keyList = Object.keys(JSON.parse(localStorage['inbox']));
+function findKeys(type) {
+  const keyList = Object.keys(JSON.parse(localStorage[type]));
   return keyList;
 }
 
