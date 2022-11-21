@@ -1,4 +1,3 @@
-
 const cardData = (title, discript, date, priority) => {
   const data = {
     title,
@@ -23,6 +22,20 @@ function putJSON(type, key, value) {
   console.log(localStorage);
 }
 
+function putKey(type, oldKey, modKey) {
+  const data = JSON.parse(localStorage.getItem(type));
+  const replacements = {};
+  replacements[oldKey] = modKey;
+
+  let replacedItems = Object.keys(data).map((key) => {
+  const newKey = replacements[key] || key;
+  return { [newKey] : data[key] };
+  });
+
+  const newData = replacedItems.reduce((a, b) => Object.assign({}, a, b));
+  localStorage.setItem(type, JSON.stringify(newData));
+}
+
 
 function removeJSON(type, key) {
   let text = JSON.parse(localStorage.getItem(type));
@@ -30,4 +43,4 @@ function removeJSON(type, key) {
   localStorage.setItem(type, JSON.stringify(text));
 }
 
-export { cardData, putJSON, removeJSON };
+export { cardData, putJSON, putKey, removeJSON };

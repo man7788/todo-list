@@ -5,10 +5,11 @@ import {
   selectFactory, 
   buttonFactory
 } from './factory';
-import { cardData, putJSON, removeJSON} from './storage';
+import { cardData, putJSON, putKey, removeJSON} from './storage';
 import { findKeys } from './read-storage';
+import { addToProject } from './projects';
 
-function addButtonListener(add, item, title, descript, date, priority) {
+function addButtonListener(add, item, title, descript, date, priority, editTitle) {
   add.addEventListener('click', function(e) {
     cardShrink(
       item,
@@ -21,14 +22,22 @@ function addButtonListener(add, item, title, descript, date, priority) {
     //------------------------------------------------------------------------------------------------
     const output = cardData(title.value, descript.value, date.value, priority.value).data;
     
-
     const regex = /.+/;
     let text = e.path[3].innerText;
     let result = regex.exec(text);
-    let type = result[0];
-    if (type !== 'Inbox') {
-      putJSON(type, title.value, output);
+    let parent = result[0];
+
+    if (parent !== 'Inbox') {
+      if (editTitle !== undefined) { 
+        putKey(parent, editTitle, title.value);
+      }
+      putJSON(parent, title.value, output);
+      findElement().select.remove()
+      addToProject(parent);
     } else {
+      if (editTitle !== undefined) { 
+        putKey('inbox', editTitle, title.value);
+      }
       putJSON('inbox', title.value, output);
     }
   });
@@ -57,8 +66,22 @@ function editButtonListener(edit, item, title, descript, date, priority) {
 }
 
 function delButtonListener(del, item, type, key) {
-  del.addEventListener('click', function() {
+  del.addEventListener('click', function(e) {
     removeJSON(type, key);
+
+    const regex = /.+/;
+    let text = e.path[3].innerText;
+    let result = regex.exec(text);
+    let parent = result[0];
+
+    check:
+    if (parent !== 'Inbox') {
+      findElement().select.remove()
+      addToProject(type);
+    } else {
+      break check;
+    }
+
     item.remove();
   });
 }
@@ -101,7 +124,7 @@ const cardFactory = (title, descript, date, button, editTitle, editDes, editDate
   const cardPriority = selectFactory('Priority', 'High', 'Normal', 'Low', editPri).element;
   const add = buttonFactory('button', 'add-button', button).element;
 
-  addButtonListener(add, cardItem, cardTitle, cardDescript, cardDate, cardPriority);
+  addButtonListener(add, cardItem, cardTitle, cardDescript, cardDate, cardPriority, editTitle);
 
   if (editPri !== undefined) {
     if (typeof editPri === 'string') {
@@ -198,8 +221,9 @@ function findElement() {
   const cardContainer = document.querySelector('.card-container');
   const inboxTitle = document.querySelector('.inbox-title');
   const projectTitle = document.querySelector('.project-title');
+  const select = document.querySelector('.new-project-div > select');
 
-  return { newButton, cardContainer, inboxTitle, projectTitle }
+  return { newButton, cardContainer, inboxTitle, projectTitle, select }
 
 }
 

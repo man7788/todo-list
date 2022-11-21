@@ -28,9 +28,6 @@ function createProjectHeader(project) {
   return projectHeaderDiv;
 }
 
-//Remove option if already in project
-//Edit button only change current card
-
 function addToProject(project) {
   let addList = findKeys('inbox');
   let removeList = findKeys(project);
@@ -57,10 +54,14 @@ function addProjectCard() {
     const index = selected.selectedIndex;
     const data = findSelect(value);
 
-    loadStorage(value, 'inbox');
-    putJSON(title, value, data);
-    
-    selected[index].remove();
+    check:
+    if (selected.length !== 0) {
+      loadStorage(value, 'inbox');
+      putJSON(title, value, data);
+      selected[index].remove();
+    } else {
+      break check;
+    }
   });
 }
 

@@ -21,10 +21,23 @@ import { checkStorage } from './read-storage';
   createFooterClick();
 })();
 
-checkStorage('inbox');
-checkStorage('side');
-
+(function() {
+  checkStorage('inbox');
+  checkStorage('side');
+})();
 
 // localStorage.clear();
 
+    // Save button should upadte current data instead of saving new data
+    // Update new key to storage
+    // Save storage using new key
 
+
+
+
+    // Prevent new todo using duplicated names
+    // Delete project buttons
+
+
+    // Add back to selection after delete card
+    // Disable add todo button if no todo available
