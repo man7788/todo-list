@@ -28,16 +28,7 @@ import { checkStorage } from './read-storage';
 
 // localStorage.clear();
 
-    // Save button should upadte current data instead of saving new data
-    // Update new key to storage
-    // Save storage using new key
-
-
-
-
     // Prevent new todo using duplicated names
+    // Prevent edit todo using duplicated names
+    // Prevent add to project to add duplicated names todo
     // Delete project buttons
-
-
-    // Add back to selection after delete card
-    // Disable add todo button if no todo available

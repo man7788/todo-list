@@ -43,9 +43,22 @@ function findKeys(type) {
   return keyList;
 }
 
+function findExistKey(type, exist) {
+  const keysList = findKeys(type);
+  let value;
+  if (keysList.includes(exist)) {
+    console.log('exist');
+    console.log(keysList);
+    value = true;
+  } else {
+    value = false;
+    }
+  return value;
+}
+
 function findSelect(key) {
   const keyList = JSON.parse(localStorage['inbox']);
   return keyList[key];
 }
 
-export { checkStorage, findStorage, findKeys, findSelect, loadStorage };
+export { checkStorage, findStorage, findKeys, findSelect, loadStorage, findExistKey };

@@ -6,40 +6,61 @@ import {
   buttonFactory
 } from './factory';
 import { cardData, putJSON, putKey, removeJSON} from './storage';
-import { findKeys } from './read-storage';
+import { findKeys, findExistKey} from './read-storage';
 import { addToProject } from './projects';
 
 function addButtonListener(add, item, title, descript, date, priority, editTitle) {
   add.addEventListener('click', function(e) {
-    cardShrink(
-      item,
-      title.value,
-      descript.value,
-      date.value,
-      priority,
-    )
-    item.remove();
-    //------------------------------------------------------------------------------------------------
-    const output = cardData(title.value, descript.value, date.value, priority.value).data;
+    const buttonName = e.target.childNodes[0].textContent;
+    const exist = findExistKey('inbox', title.value);
+    console.log(e.target.childNodes[0].textContent);
+    const selfTitle = e.target.parentElement.childNodes[0][0].value;
     
-    const regex = /.+/;
-    let text = e.path[3].innerText;
-    let result = regex.exec(text);
-    let parent = result[0];
+    if (exist == true && buttonName == 'Add') {
+      alert('Todo already exists.') 
+      } else if (!exist == true && buttonName == 'Add') { 
+        cardShrink(
+          item,
+          title.value,
+          descript.value,
+          date.value,
+          priority,
+          )
+        item.remove();
+        // Check if original title same as edit title, edit save
+        // Checi if edit title same as List of keys, no save
+      } else if ( title.value == selfTitle && buttonName == 'Save') {
+        console.log('fuck');
+        cardShrink(
+          item,
+          title.value,
+          descript.value,
+          date.value,
+          priority,
+          )
+        item.remove();
 
-    if (parent !== 'Inbox') {
-      if (editTitle !== undefined) { 
-        putKey(parent, editTitle, title.value);
+        const output = cardData(title.value, descript.value, date.value, priority.value).data;
+        
+        const regex = /.+/;
+        let text = e.path[3].innerText;
+        let result = regex.exec(text);
+        let parent = result[0];
+
+        if (parent !== 'Inbox') {
+          if (editTitle !== undefined) { 
+            putKey(parent, editTitle, title.value);
+          }
+          putJSON(parent, title.value, output);
+          findElement().select.remove()
+          addToProject(parent);
+        } else {
+          if (editTitle !== undefined) { 
+            putKey('inbox', editTitle, title.value);
+          }
+          putJSON('inbox', title.value, output);
+        }
       }
-      putJSON(parent, title.value, output);
-      findElement().select.remove()
-      addToProject(parent);
-    } else {
-      if (editTitle !== undefined) { 
-        putKey('inbox', editTitle, title.value);
-      }
-      putJSON('inbox', title.value, output);
-    }
   });
 }
 function expandButtonListener(expand, item, title, descript, date, priority) {
