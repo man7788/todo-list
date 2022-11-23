@@ -44,6 +44,9 @@ function findKeys(type) {
 }
 
 function findExistKey(type, exist) {
+  if (JSON.parse(localStorage[type]) == undefined) {
+    return;
+  }
   const keysList = findKeys(type);
   let value;
   if (keysList.includes(exist)) {

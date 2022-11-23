@@ -1,4 +1,5 @@
 import { elementFactory } from './factory';
+import { putJSON } from './storage';
 
 function createInboxContent() {
   const inboxContent = elementFactory('inbox-content').element;
@@ -6,6 +7,10 @@ function createInboxContent() {
   const cardContainer = elementFactory('card-container').element;
 
   inboxContent.append(headerContent, cardContainer);
+  
+  if (!localStorage.getItem('inbox')) {
+    putJSON('inbox');
+  }
 
   return inboxContent;
 }

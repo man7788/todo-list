@@ -11,56 +11,90 @@ import { addToProject } from './projects';
 
 function addButtonListener(add, item, title, descript, date, priority, editTitle) {
   add.addEventListener('click', function(e) {
-    const buttonName = e.target.childNodes[0].textContent;
-    const exist = findExistKey('inbox', title.value);
-    console.log(e.target.childNodes[0].textContent);
-    const selfTitle = e.target.parentElement.childNodes[0][0].value;
+    const output = cardData(title.value, descript.value, date.value, priority.value).data;
     
-    if (exist == true && buttonName == 'Add') {
-      alert('Todo already exists.') 
-      } else if (!exist == true && buttonName == 'Add') { 
-        cardShrink(
-          item,
-          title.value,
-          descript.value,
-          date.value,
-          priority,
-          )
-        item.remove();
-        // Check if original title same as edit title, edit save
-        // Checi if edit title same as List of keys, no save
-      } else if ( title.value == selfTitle && buttonName == 'Save') {
-        console.log('fuck');
-        cardShrink(
-          item,
-          title.value,
-          descript.value,
-          date.value,
-          priority,
-          )
-        item.remove();
+    const regex = /.+/;
+    let text = e.composedPath();
+    text = text[3].innerText;
+    let result = regex.exec(text);
+    let parent = result[0];
+    let searchParent = result[0];
+    if (searchParent == 'Inbox') {
+      searchParent = 'inbox';
+    }
 
-        const output = cardData(title.value, descript.value, date.value, priority.value).data;
-        
-        const regex = /.+/;
-        let text = e.path[3].innerText;
-        let result = regex.exec(text);
-        let parent = result[0];
+    const buttonName = e.target.childNodes[0].textContent;
+    
+    const exist = findExistKey(searchParent, title.value);
+    console.log(exist);
+    console.log(searchParent);
 
-        if (parent !== 'Inbox') {
-          if (editTitle !== undefined) { 
-            putKey(parent, editTitle, title.value);
-          }
-          putJSON(parent, title.value, output);
-          findElement().select.remove()
-          addToProject(parent);
-        } else {
-          if (editTitle !== undefined) { 
-            putKey('inbox', editTitle, title.value);
-          }
-          putJSON('inbox', title.value, output);
+    
+    // 1. Plain new inbox, no name check needed
+    if (findKeys('inbox').length == 0 && parent == 'Inbox') {
+      cardShrink(
+        item,
+        title.value,
+        descript.value,
+        date.value,
+        priority,
+        );
+
+      item.remove();
+      putJSON('inbox', title.value, output);
+
+      console.log('Item added fresh inbox');
+      // 2. Inbox with items, check name for duplicate
+    } else if (exist == true && buttonName == 'Add') {
+      alert('Todo already exists.');
+      console.log('Name already exists');
+      
+      // 3. Add card with no name duplicate
+    } else if (!exist == true && buttonName == 'Add') { 
+      cardShrink(
+        item,
+        title.value,
+        descript.value,
+        date.value,
+        priority,
+        );
+
+      item.remove();
+      console.log('Item added no duplicate name');
+      putJSON('inbox', title.value, output);
+      
+        // 3. Edit card with name change, check name for duplicate
+    } else if (title.value !== editTitle && exist == true && buttonName == 'Save') {
+      alert('Name already exists.');
+      console.log('Name already exists');
+      
+      // 4. Edit card without name change, no name check needed
+    } else if ((title.value == editTitle && exist == true && buttonName == 'Save') ||
+    (title.value !== editTitle && exist !== true && buttonName == 'Save')) {
+      console.log('Edit without name change / Edit without name duplicate');
+      cardShrink(
+        item,
+        title.value,
+        descript.value,
+        date.value,
+        priority,
+        )
+      item.remove();
+      
+      if (parent !== 'Inbox') {
+        if (editTitle !== undefined) { 
+          putKey(parent, editTitle, title.value);
         }
+        putJSON(parent, title.value, output);
+        findElement().select.remove()
+        addToProject(parent);
+      } else {
+        if (editTitle !== undefined) { 
+          putKey('inbox', editTitle, title.value);
+        }
+        putJSON('inbox', title.value, output);
       }
+    }
   });
 }
 function expandButtonListener(expand, item, title, descript, date, priority) {
@@ -91,7 +125,8 @@ function delButtonListener(del, item, type, key) {
     removeJSON(type, key);
 
     const regex = /.+/;
-    let text = e.path[3].innerText;
+    let text = e.composedPath();
+    text = text[3].innerText;
     let result = regex.exec(text);
     let parent = result[0];
 
