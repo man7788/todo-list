@@ -37,10 +37,15 @@ function putKey(type, oldKey, modKey) {
 }
 
 
-function removeJSON(type, key) {
+function removeCardData(type, key) {
   let text = JSON.parse(localStorage.getItem(type));
   delete text[key];
   localStorage.setItem(type, JSON.stringify(text));
 }
 
-export { cardData, putJSON, putKey, removeJSON };
+function removePrjData(type) {
+  localStorage.removeItem(type);
+  removeCardData('side', type);
+}
+
+export { cardData, putJSON, putKey, removeCardData, removePrjData };

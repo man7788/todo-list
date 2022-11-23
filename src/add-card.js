@@ -3,9 +3,10 @@ import {
   formFactory, 
   inputFactory, 
   selectFactory, 
-  buttonFactory
+  buttonFactory,
+  parentFactory
 } from './factory';
-import { cardData, putJSON, putKey, removeJSON} from './storage';
+import { cardData, putJSON, putKey, removeCardData} from './storage';
 import { findKeys, findExistKey} from './read-storage';
 import { addToProject } from './projects';
 
@@ -13,12 +14,8 @@ function addButtonListener(add, item, title, descript, date, priority, editTitle
   add.addEventListener('click', function(e) {
     const output = cardData(title.value, descript.value, date.value, priority.value).data;
     
-    const regex = /.+/;
-    let text = e.composedPath();
-    text = text[3].innerText;
-    let result = regex.exec(text);
-    let parent = result[0];
-    let searchParent = result[0];
+    let parent = parentFactory(e).result;
+    let searchParent = parent;
     if (searchParent == 'Inbox') {
       searchParent = 'inbox';
     }
@@ -63,12 +60,12 @@ function addButtonListener(add, item, title, descript, date, priority, editTitle
       console.log('Item added no duplicate name');
       putJSON('inbox', title.value, output);
       
-        // 3. Edit card with name change, check name for duplicate
+        // 4. Edit card with name change, check name for duplicate
     } else if (title.value !== editTitle && exist == true && buttonName == 'Save') {
       alert('Name already exists.');
       console.log('Name already exists');
       
-      // 4. Edit card without name change, no name check needed
+      // 5. Edit card without name change, edit without name duplicate
     } else if ((title.value == editTitle && exist == true && buttonName == 'Save') ||
     (title.value !== editTitle && exist !== true && buttonName == 'Save')) {
       console.log('Edit without name change / Edit without name duplicate');
@@ -97,6 +94,7 @@ function addButtonListener(add, item, title, descript, date, priority, editTitle
     }
   });
 }
+
 function expandButtonListener(expand, item, title, descript, date, priority) {
   expand.addEventListener('click', function() {
     cardOutput( 
@@ -122,13 +120,9 @@ function editButtonListener(edit, item, title, descript, date, priority) {
 
 function delButtonListener(del, item, type, key) {
   del.addEventListener('click', function(e) {
-    removeJSON(type, key);
+    removeCardData(type, key);
 
-    const regex = /.+/;
-    let text = e.composedPath();
-    text = text[3].innerText;
-    let result = regex.exec(text);
-    let parent = result[0];
+    let parent = parentFactory(e).result;
 
     check:
     if (parent !== 'Inbox') {

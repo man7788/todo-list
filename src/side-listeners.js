@@ -39,4 +39,4 @@ function loadInbox() {
 }
 
 
-export { createSideClick }
+export { createSideClick, loadInbox }

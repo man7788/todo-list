@@ -62,4 +62,24 @@ const addPrjFactory = (label, ...ops) => {
   return { element };
 }
 
-export { elementFactory, inputFactory, formFactory, selectFactory, buttonFactory, addPrjFactory }
+const parentFactory = (event) => {
+  const regex = /.+/;
+  let text = event.composedPath();
+  text = text[3].innerText;
+  let result = regex.exec(text);
+  result = result[0];
+
+  return { result }
+}
+
+const prjNameFactory = (event) => {
+  const regex = /.+/;
+  let path = event.composedPath();
+  path = path[1].innerText;
+  let result = regex.exec(path);
+  result = result[0];
+
+  return { result }
+}
+
+export { elementFactory, inputFactory, formFactory, selectFactory, buttonFactory, addPrjFactory, parentFactory, prjNameFactory }
