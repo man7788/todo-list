@@ -6,9 +6,8 @@
 }
 
 #container {
-  height: 100vh;
   display: grid;
-  grid-template-rows: 1fr 10fr 1fr;
+  grid-template-rows: 100px 10fr;
   grid-template-columns: 300px 100fr;
 }
 
@@ -37,7 +36,7 @@
 
 .side-menu {
   display: grid;
-  grid-template-rows: 1fr 1fr 0.5fr 0.1fr 10fr;
+  grid-template-rows: 50px 50px;
   grid-template-columns: repeat(11, 1fr);
   justify-content: center;
 }
@@ -45,28 +44,23 @@
 .side-button {
   color: whitesmoke;
   font-size: 1.5rem;
-  grid-column: 2 / 3;
 }
 
 .side-button:nth-child(1) {
-  grid-row: 2 / 3;
+  grid-row: 1 / 2;
   grid-column: 3 / 10;
 
 }
 
 .side-button:nth-child(2) {
-  grid-row: 3 / 4;
+  grid-row: 2 / 3;
   grid-column: 3 / 10;
   display: grid;
   /* border-bottom: 3px solid whitesmoke; */
 }
 
-.side-button:nth-child(3) {
-  grid-row: 4 / 5;
-}
-
 .side-project-container {
-  grid-row: 5 / 6;
+  grid-row: 3 / 4;
   grid-column: 4 / 10;
   color: whitesmoke;
 }
@@ -94,27 +88,21 @@
   grid-column: 2 / 3;
   background: rgb(55, 55, 55);
   display: grid;
+  padding-bottom: 100px;
 }
 
 .inbox-content,
 .project-content {
   color: whitesmoke;
   display: grid;
-  grid-template-rows: 0.1fr 1fr 10fr;
+  grid-template-rows: 100px;
   grid-template-columns: 1fr 5fr 1fr;
 }
-
-/* .storage-content {
-  color: whitesmoke;
-  display: grid;
-  grid-template-rows: 0.1fr 1fr 10fr;
-  grid-template-columns: 1fr 5fr 1fr;
-} */
 
 /* ////////////////////////////////////////Inbox Header  */
 .inbox-header-container,
 .project-header-container {
-  grid-row: 2 / 3;
+  grid-row: 1 / 2;
   grid-column: 2 / 3;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -164,7 +152,7 @@
 }
 /* ////////////////////////////////////////Inbox Card  */
 .card-container {
-  grid-row: 3 / 4;
+  grid-row: 2 / 3;
   grid-column: 2 / 3;
   display: flex;
   flex-direction: column;
