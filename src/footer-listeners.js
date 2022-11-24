@@ -1,7 +1,7 @@
 import { elementFactory, buttonFactory, prjNameFactory } from "./factory";
 import { createProjectContent, addToProject, addProjectCard } from "./projects";
 import { cardData, putJSON, removePrjData } from './storage';
-import { checkStorage } from "./read-storage";
+import { checkStorage, findExistKey } from "./read-storage";
 import { loadInbox } from "./side-listeners";
 
 function findElement() {
@@ -24,15 +24,18 @@ function findElement() {
 
 function createFooterClick() {
   const add = findElement().footerAdd;
-
+  
   add.addEventListener('click', function() {
-    let projectName = findElement().projectName;
-    createSideProject(projectName.value);
-    //------------------------------------------------------------------------------------------------
-    const output = cardData(projectName.value).data;
-    putJSON('side', projectName.value, output);
-    putJSON(projectName.value);
-    projectName.value = '';
+    const projectName = findElement().projectName;
+    const exist = findExistKey('side', projectName.value);
+    console.log(exist);
+    if (exist !== true) {
+      createSideProject(projectName.value);
+      const output = cardData(projectName.value).data;
+      putJSON('side', projectName.value, output);
+      putJSON(projectName.value);
+      projectName.value = '';
+    } else { alert('Name already exists'); }
   });
 }
 
